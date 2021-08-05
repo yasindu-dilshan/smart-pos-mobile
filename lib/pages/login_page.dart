@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smart_pos_mobile/constants.dart';
+import 'package:smart_pos_mobile/pages/home_page.dart';
 import 'package:smart_pos_mobile/widgets/rounded_input.dart';
 import 'package:smart_pos_mobile/widgets/rounded_password_input.dart';
 
@@ -54,7 +55,9 @@ class _LoginPageState extends State<LoginPage> {
                     RoundedPasswordInput(
                         icon: Icons.lock, hintText: "Password", size: size),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context).pushNamed(HomePage.routeName);
+                      },
                       child: Container(
                         padding: EdgeInsets.symmetric(vertical: 20),
                         width: size.width * 0.8,
