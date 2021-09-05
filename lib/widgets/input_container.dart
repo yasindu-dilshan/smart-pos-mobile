@@ -13,6 +13,7 @@ class InputContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  console.log("gg");
     return Container(
         margin: EdgeInsets.symmetric(vertical: 10),
         width: size.width * 0.8,
