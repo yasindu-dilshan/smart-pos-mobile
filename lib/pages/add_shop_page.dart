@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:smart_pos_mobile/pages/home_page.dart';
+import 'package:smart_pos_mobile/services/shop_service.dart';
 
 class AddShopPage extends StatelessWidget {
-  static const routeName = "/addShopPage";
+  static const routeName = '/addShopPage';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Add Shop"),
+          title: Text('Add Shop'),
         ),
         body: AddShopForm());
   }
@@ -21,6 +23,13 @@ class AddShopForm extends StatefulWidget {
 class _AddShopFormState extends State<AddShopForm> {
   final _formKey = GlobalKey<FormState>();
 
+  final shopName_controller = TextEditingController();
+  final ownerName_controller = TextEditingController();
+  final email_controller = TextEditingController();
+  final telephone_controller = TextEditingController();
+  final address_controller = TextEditingController();
+  final location_controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -31,9 +40,10 @@ class _AddShopFormState extends State<AddShopForm> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextFormField(
+              controller: shopName_controller,
               decoration: InputDecoration(
                 border: UnderlineInputBorder(),
-                labelText: "Shop name",
+                labelText: 'Shop name',
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -43,9 +53,10 @@ class _AddShopFormState extends State<AddShopForm> {
               },
             ),
             TextFormField(
+              controller: ownerName_controller,
               decoration: InputDecoration(
                 border: UnderlineInputBorder(),
-                labelText: "Owner Name",
+                labelText: 'Owner Name',
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -55,9 +66,10 @@ class _AddShopFormState extends State<AddShopForm> {
               },
             ),
             TextFormField(
+              controller: email_controller,
               decoration: InputDecoration(
                 border: UnderlineInputBorder(),
-                labelText: "Email",
+                labelText: 'Email',
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -67,9 +79,10 @@ class _AddShopFormState extends State<AddShopForm> {
               },
             ),
             TextFormField(
+              controller: telephone_controller,
               decoration: InputDecoration(
                 border: UnderlineInputBorder(),
-                labelText: "Telephone",
+                labelText: 'Telephone',
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -79,9 +92,23 @@ class _AddShopFormState extends State<AddShopForm> {
               },
             ),
             TextFormField(
+              controller: location_controller,
               decoration: InputDecoration(
                 border: UnderlineInputBorder(),
-                labelText: "Address",
+                labelText: 'Location',
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
+            ),
+            TextFormField(
+              controller: address_controller,
+              decoration: InputDecoration(
+                border: UnderlineInputBorder(),
+                labelText: 'Address',
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -96,11 +123,19 @@ class _AddShopFormState extends State<AddShopForm> {
             ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
+                  var a = ShopService.addShop(
+                      shopName_controller.text,
+                      ownerName_controller.text,
+                      email_controller.text,
+                      telephone_controller.text,
+                      location_controller.text,
+                      address_controller.text);
                   ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text("Saved")));
+                      .showSnackBar(SnackBar(content: Text('Saved')));
+                  Navigator.of(context).pushNamed(HomePage.routeName);
                 }
               },
-              child: Text("Save"),
+              child: Text('Save'),
             )
           ],
         ),

@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:smart_pos_mobile/pages/add_shop_page.dart';
+import 'package:smart_pos_mobile/pages/map_page.dart';
+import 'package:smart_pos_mobile/pages/add_leave_page.dart';
+import 'package:smart_pos_mobile/pages/test.dart';
+import 'package:smart_pos_mobile/pages/view_leaves_page.dart';
 import 'package:smart_pos_mobile/widgets/menu_card.dart';
 
 class HomePage extends StatelessWidget {
-  static const routeName = "/homePage";
+  static const routeName = '/homePag';
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
-          title: Text("POS App"),
+          title: Text('POS App'),
         ),
         body: Stack(
           children: [
@@ -31,23 +36,35 @@ class HomePage extends StatelessWidget {
                           crossAxisCount: 2,
                           children: [
                             MenuCard(
-                                asset: "assets/images/box.png",
-                                text: "Create Order"),
+                              asset: 'assets/images/box.png',
+                              text: 'Create Order',
+                              routeName: AddShopPage.routeName,
+                            ),
                             MenuCard(
-                                asset: "assets/images/checklist.png",
-                                text: "View Orders"),
+                              asset: 'assets/images/checklist.png',
+                              text: 'View Orders',
+                              routeName: AddShopPage.routeName,
+                            ),
                             MenuCard(
-                                asset: "assets/images/shop.png",
-                                text: "Add Shop"),
+                              asset: 'assets/images/shop.png',
+                              text: 'Add Shop',
+                              routeName: AddShopPage.routeName,
+                            ),
                             MenuCard(
-                                asset: "assets/images/map.png",
-                                text: "Daily Shops"),
+                              asset: 'assets/images/map.png',
+                              text: 'Daily Shops',
+                              routeName: MapPage.routeName,
+                            ),
                             MenuCard(
-                                asset: "assets/images/question.png",
-                                text: "Request Leave"),
+                              asset: 'assets/images/question.png',
+                              text: 'Request Leave',
+                              routeName: RequestLeavePage.routeName,
+                            ),
                             MenuCard(
-                                asset: "assets/images/clipboard.png",
-                                text: "View Leaves"),
+                              asset: 'assets/images/clipboard.png',
+                              text: 'View Leaves',
+                              routeName: ViewLeavePage.routeName,
+                            ),
                           ],
                         ),
                       ),
