@@ -4,6 +4,7 @@ import 'package:smart_pos_mobile/pages/map_page.dart';
 import 'package:smart_pos_mobile/pages/add_leave_page.dart';
 import 'package:smart_pos_mobile/pages/test.dart';
 import 'package:smart_pos_mobile/pages/view_leaves_page.dart';
+import 'package:smart_pos_mobile/pages/view_shops_page.dart';
 import 'package:smart_pos_mobile/widgets/menu_card.dart';
 
 class HomePage extends StatelessWidget {
@@ -38,7 +39,7 @@ class HomePage extends StatelessWidget {
                             MenuCard(
                               asset: 'assets/images/box.png',
                               text: 'Create Order',
-                              routeName: AddShopPage.routeName,
+                              routeName: ViewShopPage.routeName,
                             ),
                             MenuCard(
                               asset: 'assets/images/checklist.png',
