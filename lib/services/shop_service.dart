@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:smart_pos_mobile/config.dart';
+import 'package:smart_pos_mobile/data/shop.dart';
 import 'package:smart_pos_mobile/data/shop.dart';
 
 class ShopService {
@@ -13,6 +15,14 @@ class ShopService {
       }).toList();
     } else {
       throw Exception('Failed to load the leaves');
+    }
+  }
+
+  static Future<Shop?> getOneShop() async {
+    final response = await http.get(Uri.parse(
+        '${Config.BACKEND_URL}/salesperson/shop/61366f2747ecc3419cad28fc'));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return Shop.fromJSON(jsonDecode(response.body)['result']);
     }
   }
 

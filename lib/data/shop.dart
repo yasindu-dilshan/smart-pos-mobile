@@ -7,6 +7,7 @@ class Shop {
   final String latitude;
   final String ownerName;
   final String address;
+  final String? id;
 
   // ignore: sort_constructors_first
   Shop(
@@ -17,11 +18,13 @@ class Shop {
       required this.longitude,
       required this.latitude,
       required this.ownerName,
+      required this.id,
       required this.address});
 
   // ignore: sort_constructors_first
   factory Shop.fromJSON(Map<String, dynamic> data) {
     return Shop(
+        id: data['_id'],
         name: data['name'],
         location: data['location'],
         email: data['email'],

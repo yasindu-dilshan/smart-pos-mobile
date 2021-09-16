@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_pos_mobile/data/shop.dart';
+import 'package:smart_pos_mobile/pages/sales_page.dart';
+import 'package:smart_pos_mobile/pages/view_shop_details_page.dart';
 
 class ShopHomeArguments {
   ShopHomeArguments({required this.shop});
@@ -39,8 +41,8 @@ class ShopHomePage extends StatelessWidget {
           ),
           body: TabBarView(
             children: [
-              Icon(Icons.directions_car),
-              Icon(Icons.directions_transit),
+              ViewShopDetailsPage(shop: shop),
+              SalesPage(shop: shop),
               Icon(Icons.directions_bike),
             ],
           ),
