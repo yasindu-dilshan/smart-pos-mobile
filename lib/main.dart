@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:smart_pos_mobile/data/CartModel.dart';
+import 'package:smart_pos_mobile/data/stockModel.dart';
 import 'package:smart_pos_mobile/pages/login_page.dart';
 import 'package:smart_pos_mobile/routes.dart';
 import 'package:smart_pos_mobile/theme.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(SmartPOSApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => StockModel()),
+      ChangeNotifierProvider(create: (context) => CartModel()),
+    ],
+    child: SmartPOSApp(),
+  ));
 }
 
 class SmartPOSApp extends StatelessWidget {
