@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_pos_mobile/pages/home_page.dart';
+import 'package:smart_pos_mobile/pages/profile_page.dart';
 import 'package:smart_pos_mobile/pages/stock_page.dart';
 import 'package:smart_pos_mobile/pages/view_leaves_page.dart';
 
@@ -10,10 +11,7 @@ class BottomNavigationPage extends StatefulWidget {
   static final List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     StockPage(),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
+    ProfilePage()
   ];
 
   @override

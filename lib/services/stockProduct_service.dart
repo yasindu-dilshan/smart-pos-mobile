@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:smart_pos_mobile/config.dart';
-import 'package:smart_pos_mobile/data/stockModel.dart';
 import 'package:smart_pos_mobile/data/stockProduct.dart';
 
 class StockProductService {
