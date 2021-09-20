@@ -36,108 +36,110 @@ class _AddShopFormState extends State<AddShopForm> {
       key: _formKey,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextFormField(
-              controller: shopName_controller,
-              decoration: InputDecoration(
-                border: UnderlineInputBorder(),
-                labelText: 'Shop name',
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextFormField(
+                controller: shopName_controller,
+                decoration: InputDecoration(
+                  border: UnderlineInputBorder(),
+                  labelText: 'Shop name',
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: ownerName_controller,
-              decoration: InputDecoration(
-                border: UnderlineInputBorder(),
-                labelText: 'Owner Name',
+              TextFormField(
+                controller: ownerName_controller,
+                decoration: InputDecoration(
+                  border: UnderlineInputBorder(),
+                  labelText: 'Owner Name',
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: email_controller,
-              decoration: InputDecoration(
-                border: UnderlineInputBorder(),
-                labelText: 'Email',
+              TextFormField(
+                controller: email_controller,
+                decoration: InputDecoration(
+                  border: UnderlineInputBorder(),
+                  labelText: 'Email',
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: telephone_controller,
-              decoration: InputDecoration(
-                border: UnderlineInputBorder(),
-                labelText: 'Telephone',
+              TextFormField(
+                controller: telephone_controller,
+                decoration: InputDecoration(
+                  border: UnderlineInputBorder(),
+                  labelText: 'Telephone',
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: location_controller,
-              decoration: InputDecoration(
-                border: UnderlineInputBorder(),
-                labelText: 'Location',
+              TextFormField(
+                controller: location_controller,
+                decoration: InputDecoration(
+                  border: UnderlineInputBorder(),
+                  labelText: 'Location',
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: address_controller,
-              decoration: InputDecoration(
-                border: UnderlineInputBorder(),
-                labelText: 'Address',
+              TextFormField(
+                controller: address_controller,
+                decoration: InputDecoration(
+                  border: UnderlineInputBorder(),
+                  labelText: 'Address',
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  var a = ShopService.addShop(
-                      shopName_controller.text,
-                      ownerName_controller.text,
-                      email_controller.text,
-                      telephone_controller.text,
-                      location_controller.text,
-                      address_controller.text);
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text('Saved')));
-                  Navigator.of(context).pushNamed(HomePage.routeName);
-                }
-              },
-              child: Text('Save'),
-            )
-          ],
+              SizedBox(
+                height: 15,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    var a = ShopService.addShop(
+                        shopName_controller.text,
+                        ownerName_controller.text,
+                        email_controller.text,
+                        telephone_controller.text,
+                        location_controller.text,
+                        address_controller.text);
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(SnackBar(content: Text('Saved')));
+                    Navigator.of(context).pushNamed(HomePage.routeName);
+                  }
+                },
+                child: Text('Save'),
+              )
+            ],
+          ),
         ),
       ),
     );

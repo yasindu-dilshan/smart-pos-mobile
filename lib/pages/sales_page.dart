@@ -118,7 +118,7 @@ class SalesPage extends StatelessWidget {
                       alignment: Alignment.center,
                       // color: Colors.blueGrey,
                       child: Text(
-                        orders[i].totalPrice.toString(),
+                        'Rs. ' + orders[i].totalPrice.toString(),
                         style: TextStyle(fontWeight: FontWeight.w700),
                       ),
                     ),
@@ -138,9 +138,10 @@ class SalesPage extends StatelessWidget {
                                 style: ElevatedButton.styleFrom(
                                     primary: Colors.red),
                                 child: Text(
-                                  (orders[i].totalPrice -
-                                          orders[i].receivedPrice)
-                                      .toString(),
+                                  'Rs. ' +
+                                      (orders[i].totalPrice -
+                                              orders[i].receivedPrice)
+                                          .toString(),
                                   style: TextStyle(fontWeight: FontWeight.w700),
                                 ),
                               )

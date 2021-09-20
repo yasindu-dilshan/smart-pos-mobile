@@ -8,6 +8,8 @@ class ShopList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
       itemCount: shops.length,
       itemBuilder: (context, index) {
         var shop = shops[index];

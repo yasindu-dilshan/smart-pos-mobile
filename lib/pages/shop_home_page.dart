@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_pos_mobile/data/shop.dart';
+import 'package:smart_pos_mobile/pages/new_invoice_page.dart';
 import 'package:smart_pos_mobile/pages/sales_page.dart';
 import 'package:smart_pos_mobile/pages/view_shop_details_page.dart';
 
@@ -43,7 +44,7 @@ class ShopHomePage extends StatelessWidget {
             children: [
               ViewShopDetailsPage(shop: shop),
               SalesPage(shop: shop),
-              Icon(Icons.directions_bike),
+              NewInvoicePage()
             ],
           ),
         ),
