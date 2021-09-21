@@ -4,12 +4,15 @@ import 'package:provider/provider.dart';
 import 'package:smart_pos_mobile/constants.dart';
 import 'package:smart_pos_mobile/data/CartModel.dart';
 import 'package:smart_pos_mobile/data/cartProduct.dart';
+import 'package:smart_pos_mobile/data/shop.dart';
 import 'package:smart_pos_mobile/data/stockProduct.dart';
 import 'package:smart_pos_mobile/pages/cart.dart';
 import 'package:smart_pos_mobile/services/stockProduct_service.dart';
 import 'package:smart_pos_mobile/widgets/rounded_input.dart';
 
 class NewInvoicePage extends StatelessWidget {
+  NewInvoicePage({required this.shop});
+  final Shop shop;
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -21,7 +24,8 @@ class NewInvoicePage extends StatelessWidget {
             //Cart Button
             InkWell(
               onTap: () {
-                Navigator.of(context).pushNamed(CartPage.routeName);
+                Navigator.of(context).pushNamed(CartPage.routeName,
+                    arguments: CartArguments(shop: shop));
               },
               child: Container(
                 padding: EdgeInsets.all(15),

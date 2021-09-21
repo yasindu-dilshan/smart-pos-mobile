@@ -3,12 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:smart_pos_mobile/data/CartModel.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_pos_mobile/data/cartProduct.dart';
+import 'package:smart_pos_mobile/data/shop.dart';
+import 'package:smart_pos_mobile/services/order_service.dart';
+
+class CartArguments {
+  CartArguments({required this.shop});
+  final Shop shop;
+}
 
 class CartPage extends StatelessWidget {
   static const routeName = '/cart';
-
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as CartArguments;
+    final shop = args.shop;
     return Scaffold(
         appBar: AppBar(
           title: Text('Cart'),
@@ -23,7 +31,7 @@ class CartPage extends StatelessWidget {
                 ),
               ),
               Divider(height: 4, color: Colors.black),
-              _CartTotal(),
+              _CartTotal(shop: shop),
             ],
           ),
         ));
@@ -105,8 +113,59 @@ class _CartList extends StatelessWidget {
 }
 
 class _CartTotal extends StatelessWidget {
+  _CartTotal({required this.shop});
+  final Shop shop;
+
+  Future createAlertDialog(
+      BuildContext context, CartModel cart, Shop shop, List products) {
+    var totalPrice = cart.totalPrice();
+    var controller = TextEditingController();
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Total Price: Rs. $totalPrice'),
+            content: TextField(
+              decoration: InputDecoration(
+                border: UnderlineInputBorder(),
+                labelText: 'Received Amount',
+              ),
+              controller: controller,
+            ),
+            actions: [
+              ElevatedButton(
+                onPressed: () {
+                  var a = OrderService.addOrder(
+                      products: products,
+                      shop: shop.id,
+                      salesperson: '61364263017b454634bf0b9b',
+                      totalPrice: totalPrice,
+                      receivedPrice: int.parse(controller.text));
+                  cart.removeAll();
+                  Navigator.pop(context);
+                },
+                style: ElevatedButton.styleFrom(primary: Colors.red),
+                child: Text(
+                  'CONFIRM',
+                  style: TextStyle(fontWeight: FontWeight.w700),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(primary: Colors.blue),
+                child: Text(
+                  'CANCEL',
+                  style: TextStyle(fontWeight: FontWeight.w700),
+                ),
+              ),
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
+    var cart = context.watch<CartModel>();
     return SizedBox(
       height: 200,
       child: Center(
@@ -129,19 +188,18 @@ class _CartTotal extends StatelessWidget {
                 ),
               ],
             ),
-            TextButton(
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text('Buying not supported yet.')));
-                },
-                child: OutlinedButton.icon(
-                  icon: Icon(Icons.open_in_new),
-                  onPressed: () {},
-                  label: Text(
-                    'Generate Invoice',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                ))
+            OutlinedButton.icon(
+              icon: Icon(Icons.open_in_new),
+              onPressed: () {
+                var products = cart.getProducts();
+                createAlertDialog(context, cart, shop, products!);
+                // print(products);
+              },
+              label: Text(
+                'Generate Invoice',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+            )
           ],
         ),
       ),

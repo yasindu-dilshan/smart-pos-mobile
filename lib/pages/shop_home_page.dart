@@ -44,7 +44,7 @@ class ShopHomePage extends StatelessWidget {
             children: [
               ViewShopDetailsPage(shop: shop),
               SalesPage(shop: shop),
-              NewInvoicePage()
+              NewInvoicePage(shop: shop)
             ],
           ),
         ),

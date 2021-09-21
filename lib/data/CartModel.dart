@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:smart_pos_mobile/data/cartProduct.dart';
 import 'package:smart_pos_mobile/data/stockProduct.dart';
 
@@ -17,6 +18,17 @@ class CartModel extends ChangeNotifier {
       total += getByIndex(i).uniPrice * getByIndex(i).selectedQuantity;
     }
     return total;
+  }
+
+  List? getProducts() {
+    var products = [];
+    for (var i = 0; i < count; i++) {
+      products.add({
+        'product': getByIndex(i).id,
+        'quantity': getByIndex(i).selectedQuantity
+      });
+    }
+    return products;
   }
 
   void add(CartProduct cartProduct) {

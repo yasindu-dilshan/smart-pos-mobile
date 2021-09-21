@@ -22,4 +22,11 @@ class StockProductService {
       }
     }
   }
+
+  // static Future<http.Response> updateDailyProducts(String? id , dynamic data) async {
+  //   return http.put(
+  //     Uri.parse('https://')
+  //   )
+  // }
+
 }

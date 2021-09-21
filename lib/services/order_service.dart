@@ -20,4 +20,30 @@ class OrderService {
       }
     }
   }
+
+  static void addOrder(
+      {required List? products,
+      required String? shop,
+      required String? salesperson,
+      required int? totalPrice,
+      required int? receivedPrice}) async {
+    final response =
+        await http.post(Uri.parse('${Config.BACKEND_URL}salesperson/order'),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: jsonEncode(<String, dynamic>{
+              'products': products,
+              'shop': shop,
+              'salesperson': salesperson,
+              'totalPrice': totalPrice,
+              'receivedPrice': receivedPrice
+            }));
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return;
+    } else {
+      print(response.statusCode);
+      return;
+    }
+  }
 }
