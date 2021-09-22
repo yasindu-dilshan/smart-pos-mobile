@@ -22,105 +22,215 @@ class NewInvoicePage extends StatelessWidget {
         child: Column(
           children: [
             //Cart Button
-            InkWell(
-              onTap: () {
-                Navigator.of(context).pushNamed(CartPage.routeName,
-                    arguments: CartArguments(shop: shop));
-              },
-              child: Container(
-                padding: EdgeInsets.all(15),
-                width: size.width * .8,
-                decoration: BoxDecoration(
-                    color: kPrimaryColor,
-                    borderRadius: BorderRadius.all(Radius.circular(20))),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.shopping_cart_outlined,
-                      color: Colors.white,
-                    ),
-                    Text(
-                      'Cart',
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            CartButton(shop: shop, size: size),
             RoundedInput(size: size, icon: Icons.search, hintText: 'Search'),
-            FutureBuilder(
-                future: StockProductService.getStockProducts(
-                    '61364263017b454634bf0b9b'),
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    print(snapshot.error);
-                    return Center(
-                      child: Text('Error'),
-                    );
-                  } else if (snapshot.hasData) {
-                    var stockProducts = snapshot.data as List<StockProduct>;
-                    var cart = context.watch<CartModel>();
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 25, vertical: 0),
-                      child: GridView.builder(
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          gridDelegate:
-                              SliverGridDelegateWithMaxCrossAxisExtent(
-                                  maxCrossAxisExtent: 200,
-                                  childAspectRatio: 3 / 2,
-                                  crossAxisSpacing: 40,
-                                  mainAxisSpacing: 20),
-                          itemCount: stockProducts.length,
-                          itemBuilder: (BuildContext ctx, index) {
-                            return InkWell(
-                              onTap: () {
-                                if (!Provider.of<CartModel>(context,
-                                        listen: false)
-                                    .isCartProductIn(stockProducts[index].id)) {
-                                  var cartProduct = CartProduct(
-                                      id: stockProducts[index].id,
-                                      name: stockProducts[index].name,
-                                      uniPrice: stockProducts[index].unitPrice,
-                                      stockQuantity:
-                                          stockProducts[index].quantity,
-                                      selectedQuantity: 0);
-                                  Provider.of<CartModel>(context, listen: false)
-                                      .add(cartProduct);
-                                }
-
-                                print(Provider.of<CartModel>(context,
-                                        listen: false)
-                                    .count);
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.lightBlueAccent,
-                                    borderRadius: BorderRadius.circular(15)),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(stockProducts[index].name),
-                                    Text('Unit Price: Rs. ' +
-                                        stockProducts[index]
-                                            .unitPrice
-                                            .toString())
-                                  ],
-                                ),
-                              ),
-                            );
-                          }),
-                    );
-                  }
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }),
+            Items(),
           ],
         ),
       ),
     );
   }
 }
+
+class CartButton extends StatelessWidget {
+  const CartButton({
+    Key? key,
+    required this.shop,
+    required this.size,
+  }) : super(key: key);
+
+  final Shop shop;
+  final Size size;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+      child: TextButton(
+          onPressed: () {
+            Navigator.of(context).pushNamed(CartPage.routeName,
+                arguments: CartArguments(shop: shop));
+          },
+          style: TextButton.styleFrom(
+            padding: EdgeInsets.all(15),
+            backgroundColor: kPrimaryColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.shopping_cart_outlined,
+                color: Colors.white,
+              ),
+              Text(
+                'Cart',
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+            ],
+          )),
+    );
+  }
+}
+
+//
+// InkWell(
+// onTap: () {
+// Navigator.of(context).pushNamed(CartPage.routeName,
+// arguments: CartArguments(shop: shop));
+// },
+// child: Container(
+// padding: EdgeInsets.all(15),
+// width: size.width * .8,
+// decoration: BoxDecoration(
+// color: kPrimaryColor,
+// borderRadius: BorderRadius.all(Radius.circular(20))),
+// child: Row(
+// mainAxisAlignment: MainAxisAlignment.center,
+// children: [
+// Icon(
+// Icons.shopping_cart_outlined,
+// color: Colors.white,
+// ),
+// Text(
+// 'Cart',
+// style: TextStyle(color: Colors.white, fontSize: 18),
+// ),
+// ],
+// ),
+// ),
+// );
+
+class Items extends StatelessWidget {
+  const Items({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+        future:
+            StockProductService.getStockProducts('61364263017b454634bf0b9b'),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            print(snapshot.error);
+            return Center(
+              child: Text('Error'),
+            );
+          } else if (snapshot.hasData) {
+            var stockProducts = snapshot.data as List<StockProduct>;
+            var cart = context.watch<CartModel>();
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+              child: GridView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 200,
+                      childAspectRatio: 3 / 2.5,
+                      crossAxisSpacing: 30,
+                      mainAxisSpacing: 20),
+                  itemCount: stockProducts.length,
+                  itemBuilder: (BuildContext ctx, index) {
+                    var product = stockProducts[index];
+                    return TextButton(
+                      style: TextButton.styleFrom(
+                          backgroundColor: Colors.black.withAlpha(15),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15))),
+                      onPressed: () {
+                        if (!Provider.of<CartModel>(context, listen: false)
+                            .isCartProductIn(product.id)) {
+                          var cartProduct = CartProduct(
+                            id: product.id,
+                            name: product.name,
+                            uniPrice: product.unitPrice,
+                            stockQuantity: product.quantity,
+                            selectedQuantity: 0,
+                            photo: product.photo,
+                          );
+                          Provider.of<CartModel>(context, listen: false)
+                              .add(cartProduct);
+                        }
+
+                        print(Provider.of<CartModel>(context, listen: false)
+                            .count);
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            product.name,
+                            style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.blue.shade900),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Expanded(child: Image.network(product.photo)),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            'Rs. ' + product.unitPrice.toString(),
+                            style: TextStyle(color: Colors.blue.shade900),
+                          )
+                        ],
+                      ),
+                    );
+                  }),
+            );
+          }
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        });
+  }
+}
+// InkWell(
+// onTap: () {
+// if (!Provider.of<CartModel>(context, listen: false)
+//     .isCartProductIn(product.id)) {
+// var cartProduct = CartProduct(
+// id: product.id,
+// name: product.name,
+// uniPrice: product.unitPrice,
+// stockQuantity: product.quantity,
+// selectedQuantity: 0,
+// photo: product.photo,
+// );
+// Provider.of<CartModel>(context, listen: false)
+//     .add(cartProduct);
+// }
+//
+// print(Provider.of<CartModel>(context, listen: false)
+//     .count);
+// },
+// child: Container(
+// decoration: BoxDecoration(
+// color: Colors.black.withAlpha(15),
+// borderRadius: BorderRadius.circular(15)),
+// child: Column(
+// mainAxisAlignment: MainAxisAlignment.center,
+// children: [
+// Text(
+// product.name,
+// style: TextStyle(
+// fontSize: 17, fontWeight: FontWeight.w500),
+// ),
+// SizedBox(
+// height: 5,
+// ),
+// Expanded(child: Image.network(product.photo)),
+// SizedBox(
+// height: 5,
+// ),
+// Text('Rs. ' + product.unitPrice.toString())
+// ],
+// ),
+// ),
+// );

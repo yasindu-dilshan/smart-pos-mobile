@@ -158,8 +158,17 @@ class SalesPage extends StatelessWidget {
                 ]),
               );
             }
-            return Table(
-              children: rows,
+            return Scrollbar(
+              child: ListView(
+                children: [
+                  SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Table(
+                      children: rows,
+                    ),
+                  )
+                ],
+              ),
             );
           }
           return Center(
