@@ -31,7 +31,11 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('SMART POS'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [Text('SMART POS')],
+        ),
+        automaticallyImplyLeading: false,
       ),
       body: Center(
         child: BottomNavigationPage._widgetOptions.elementAt(_selectedIndex),
