@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:smart_pos_mobile/data/shop.dart';
 import 'package:smart_pos_mobile/pages/new_invoice_page.dart';
 import 'package:smart_pos_mobile/pages/sales_page.dart';
@@ -17,7 +18,19 @@ class ShopHomePage extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments as ShopHomeArguments;
     final shop = args.shop;
 
+    Future<void> scan() async {
+      var a = await FlutterBarcodeScanner.scanBarcode(
+          '#000000', 'Cancel', true, ScanMode.BARCODE);
+      print(a);
+    }
+
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          await scan();
+        },
+        child: Icon(Icons.add),
+      ),
       body: DefaultTabController(
         length: 3,
         child: Scaffold(
