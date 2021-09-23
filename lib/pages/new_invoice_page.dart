@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_pos_mobile/constants.dart';
-import 'package:smart_pos_mobile/data/CartModel.dart';
+import 'package:smart_pos_mobile/data/cartModel.dart';
 import 'package:smart_pos_mobile/data/cartProduct.dart';
 import 'package:smart_pos_mobile/data/shop.dart';
 import 'package:smart_pos_mobile/data/stockProduct.dart';
@@ -76,34 +76,6 @@ class CartButton extends StatelessWidget {
     );
   }
 }
-
-//
-// InkWell(
-// onTap: () {
-// Navigator.of(context).pushNamed(CartPage.routeName,
-// arguments: CartArguments(shop: shop));
-// },
-// child: Container(
-// padding: EdgeInsets.all(15),
-// width: size.width * .8,
-// decoration: BoxDecoration(
-// color: kPrimaryColor,
-// borderRadius: BorderRadius.all(Radius.circular(20))),
-// child: Row(
-// mainAxisAlignment: MainAxisAlignment.center,
-// children: [
-// Icon(
-// Icons.shopping_cart_outlined,
-// color: Colors.white,
-// ),
-// Text(
-// 'Cart',
-// style: TextStyle(color: Colors.white, fontSize: 18),
-// ),
-// ],
-// ),
-// ),
-// );
 
 class Items extends StatelessWidget {
   const Items({

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:smart_pos_mobile/data/order.dart';
+import 'package:smart_pos_mobile/data/salesModel.dart';
 import 'package:smart_pos_mobile/data/shop.dart';
 import 'package:smart_pos_mobile/services/order_service.dart';
 
@@ -98,6 +100,12 @@ class SalesPage extends StatelessWidget {
                 ),
               ),
             ]));
+
+            // for (var i = 0; i < orders!.length; i++) {
+            //   Provider.of<SalesModel>(context, listen: false).add(orders[i]);
+            //   print(Provider.of<SalesModel>(context, listen: false).count);
+            // }
+
             for (var i = 0; i < orders!.length; i++) {
               var due = orders[i].totalPrice - orders[i].receivedPrice;
               rows.add(
