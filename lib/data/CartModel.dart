@@ -37,7 +37,8 @@ class CartModel extends ChangeNotifier {
   }
 
   void increaseSelectedQuantity(int index) {
-    if (getByIndex(index).selectedQuantity < getByIndex(index).stockQuantity) {
+    if (getByIndex(index).selectedQuantity <
+        getByIndex(index).stockQuantity - getByIndex(index).sales) {
       getByIndex(index).selectedQuantity += 1;
     }
     notifyListeners();

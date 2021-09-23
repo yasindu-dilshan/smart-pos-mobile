@@ -10,6 +10,8 @@ import 'package:smart_pos_mobile/pages/cart.dart';
 import 'package:smart_pos_mobile/services/stockProduct_service.dart';
 import 'package:smart_pos_mobile/widgets/rounded_input.dart';
 
+import '../config.dart';
+
 class NewInvoicePage extends StatelessWidget {
   NewInvoicePage({required this.shop});
   final Shop shop;
@@ -111,8 +113,7 @@ class Items extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future:
-            StockProductService.getStockProducts('61364263017b454634bf0b9b'),
+        future: StockProductService.getStockProducts('${Config.USER_ID}'),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             print(snapshot.error);
@@ -144,13 +145,13 @@ class Items extends StatelessWidget {
                         if (!Provider.of<CartModel>(context, listen: false)
                             .isCartProductIn(product.id)) {
                           var cartProduct = CartProduct(
-                            id: product.id,
-                            name: product.name,
-                            uniPrice: product.unitPrice,
-                            stockQuantity: product.quantity,
-                            selectedQuantity: 0,
-                            photo: product.photo,
-                          );
+                              id: product.id,
+                              name: product.name,
+                              uniPrice: product.unitPrice,
+                              stockQuantity: product.quantity,
+                              selectedQuantity: 0,
+                              photo: product.photo,
+                              sales: product.sales);
                           Provider.of<CartModel>(context, listen: false)
                               .add(cartProduct);
                         }

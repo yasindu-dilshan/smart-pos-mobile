@@ -6,6 +6,7 @@ class CartProduct {
     required this.selectedQuantity,
     required this.stockQuantity,
     required this.photo,
+    required this.sales,
   });
 
   final String id;
@@ -14,4 +15,5 @@ class CartProduct {
   final int stockQuantity;
   int selectedQuantity;
   final String photo;
+  final int sales;
 }

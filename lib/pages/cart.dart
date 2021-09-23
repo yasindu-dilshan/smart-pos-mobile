@@ -6,6 +6,8 @@ import 'package:smart_pos_mobile/data/cartProduct.dart';
 import 'package:smart_pos_mobile/data/shop.dart';
 import 'package:smart_pos_mobile/services/order_service.dart';
 
+import '../config.dart';
+
 class CartArguments {
   CartArguments({required this.shop});
   final Shop shop;
@@ -138,7 +140,7 @@ class _CartTotal extends StatelessWidget {
                   var a = OrderService.addOrder(
                       products: products,
                       shop: shop.id,
-                      salesperson: '61364263017b454634bf0b9b',
+                      salesperson: '${Config.USER_ID}',
                       totalPrice: totalPrice,
                       receivedPrice: int.parse(controller.text));
                   cart.removeAll();

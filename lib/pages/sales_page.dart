@@ -7,7 +7,7 @@ class SalesPage extends StatelessWidget {
   SalesPage({required this.shop});
   final Shop shop;
 
-  Future createAlertDialog(BuildContext context, var due) {
+  Future createAlertDialog(BuildContext context, var due, var id) {
     var controller = TextEditingController();
     return showDialog(
         context: context,
@@ -23,7 +23,10 @@ class SalesPage extends StatelessWidget {
             ),
             actions: [
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  OrderService.updateDueAmount(id, int.parse(controller.text));
+                  Navigator.pop(context);
+                },
                 style: ElevatedButton.styleFrom(primary: Colors.red),
                 child: Text(
                   'UPDATE',
@@ -31,7 +34,9 @@ class SalesPage extends StatelessWidget {
                 ),
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
                 style: ElevatedButton.styleFrom(primary: Colors.blue),
                 child: Text(
                   'CANCEL',
@@ -133,7 +138,7 @@ class SalesPage extends StatelessWidget {
                         child: due > 0
                             ? ElevatedButton(
                                 onPressed: () {
-                                  createAlertDialog(context, due);
+                                  createAlertDialog(context, due, orders[i].id);
                                 },
                                 style: ElevatedButton.styleFrom(
                                     primary: Colors.red),

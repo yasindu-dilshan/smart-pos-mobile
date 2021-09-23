@@ -64,7 +64,7 @@ class HomePage extends StatelessWidget {
                         MenuCard(
                           asset: 'assets/images/clipboard.png',
                           text: 'View Leaves',
-                          routeName: BottomNavigationPage.routeName,
+                          routeName: ViewLeavePage.routeName,
                         ),
                       ],
                     ),

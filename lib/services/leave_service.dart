@@ -4,9 +4,9 @@ import 'package:smart_pos_mobile/config.dart';
 import 'package:smart_pos_mobile/data/leave.dart';
 
 class LeaveService {
-  static Future<List<Leave>?> getAllLeaves() async {
-    final response = await http
-        .get(Uri.parse('${Config.BACKEND_URL}salesperson/leave?sortBy=+from'));
+  static Future<List<Leave>?> getAllLeaves(String? id) async {
+    final response = await http.get(
+        Uri.parse('${Config.BACKEND_URL}salesperson/leave/$id?sortBy=+from'));
     // print(jsonDecode(response.body)['items']);
     if (response.statusCode == 200 || response.statusCode == 201) {
       return jsonDecode(response.body)['items'].map<Leave>((data) {
@@ -24,7 +24,7 @@ class LeaveService {
               'Content-Type': 'application/json; charset=UTF-8',
             },
             body: jsonEncode(<String, String>{
-              'userId': '613496813d385f4154c38d48',
+              'userId': '6146b7585db97426a446014c',
               'description': description,
               'approved': 'False',
               'from': from,

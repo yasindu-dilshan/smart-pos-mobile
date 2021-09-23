@@ -41,7 +41,8 @@ class ShopService {
               'longitude': '7.409',
               'latitude': '80.098',
               'ownerName': ownerName,
-              'address': address
+              'address': address,
+              'warehouse': Config.WAREHOUSE_ID
             }));
     if (response.statusCode == 200 || response.statusCode == 201) {
       return;

@@ -10,7 +10,7 @@ class StockProductService {
       final response = await http
           .get(Uri.parse('${Config.BACKEND_URL}salesperson/dailyProducts/$id'));
       if (response.statusCode == 200 || response.statusCode == 201) {
-        return jsonDecode(response.body)['result'][0]['dailyProducts']
+        return jsonDecode(response.body)['result']['dailyProducts']
             .map<StockProduct>((data) {
           var stockProduct = StockProduct.fromJSON(data);
 
@@ -22,11 +22,4 @@ class StockProductService {
       }
     }
   }
-
-  // static Future<http.Response> updateDailyProducts(String? id , dynamic data) async {
-  //   return http.put(
-  //     Uri.parse('https://')
-  //   )
-  // }
-
 }

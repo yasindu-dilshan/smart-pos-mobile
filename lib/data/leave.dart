@@ -3,7 +3,7 @@ class Leave {
   final String description;
   final String from;
   final String to;
-  final bool approved;
+  final String approved;
 
   // ignore: sort_constructors_first
   Leave(

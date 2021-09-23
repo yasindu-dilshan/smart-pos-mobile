@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_pos_mobile/config.dart';
 import 'package:smart_pos_mobile/data/stockProduct.dart';
 import 'package:smart_pos_mobile/services/stockProduct_service.dart';
 
@@ -22,8 +23,8 @@ class StockPage extends StatelessWidget {
           ),
           Expanded(
             child: FutureBuilder(
-                future: StockProductService.getStockProducts(
-                    '61364263017b454634bf0b9b'),
+                future:
+                    StockProductService.getStockProducts('${Config.USER_ID}'),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     print(snapshot.error);
@@ -104,7 +105,9 @@ class StockPage extends StatelessWidget {
                             alignment: Alignment.center,
                             // color: Colors.blueGrey,
                             child: Text(
-                              stockProducts[i].quantity.toString(),
+                              (stockProducts[i].quantity -
+                                      stockProducts[i].sales)
+                                  .toString(),
                               style: TextStyle(fontWeight: FontWeight.w700),
                             ),
                           ),

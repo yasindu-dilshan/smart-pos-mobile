@@ -40,10 +40,28 @@ class OrderService {
               'receivedPrice': receivedPrice
             }));
     if (response.statusCode == 200 || response.statusCode == 201) {
+      print('Done');
       return;
     } else {
       print(response.statusCode);
       return;
+    }
+  }
+
+  static void updateDueAmount(String? id, int? receivedPrice) async {
+    final response = await http.patch(
+      Uri.parse('${Config.BACKEND_URL}salesperson/updateDue/$id'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, int?>{
+        'receivedPrice': receivedPrice,
+      }),
+    );
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      print(response.statusCode);
+    } else {
+      print(response.body);
     }
   }
 }

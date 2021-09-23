@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_pos_mobile/pages/bottom_navigation_page.dart';
 import 'package:smart_pos_mobile/pages/home_page.dart';
 import 'package:smart_pos_mobile/services/shop_service.dart';
 
@@ -133,7 +134,8 @@ class _AddShopFormState extends State<AddShopForm> {
                         address_controller.text);
                     ScaffoldMessenger.of(context)
                         .showSnackBar(SnackBar(content: Text('Saved')));
-                    Navigator.of(context).pushNamed(HomePage.routeName);
+                    Navigator.of(context)
+                        .pushNamed(BottomNavigationPage.routeName);
                   }
                 },
                 child: Text('Save'),

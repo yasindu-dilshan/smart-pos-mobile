@@ -12,7 +12,7 @@ class ViewLeavePage extends StatelessWidget {
         title: Text('Leaves'),
       ),
       body: FutureBuilder(
-          future: LeaveService.getAllLeaves(),
+          future: LeaveService.getAllLeaves('613496813d385f4154c38d48'),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               print(snapshot.error);

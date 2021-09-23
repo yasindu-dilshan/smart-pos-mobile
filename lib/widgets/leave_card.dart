@@ -15,7 +15,7 @@ class LeaveCard extends StatelessWidget {
         ),
         subtitle: Text(
             leave.from.substring(0, 10) + ' to ' + leave.to.substring(0, 10)),
-        trailing: leave.approved
+        trailing: leave.approved == 'approved'
             ? Icon(
                 Icons.assignment_turned_in_outlined,
                 color: Colors.green,
