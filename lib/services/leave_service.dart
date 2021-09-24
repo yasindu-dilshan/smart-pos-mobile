@@ -24,9 +24,9 @@ class LeaveService {
               'Content-Type': 'application/json; charset=UTF-8',
             },
             body: jsonEncode(<String, String>{
-              'userId': '6146b7585db97426a446014c',
+              'userId': Config.USER_ID,
               'description': description,
-              'approved': 'False',
+              'approved': 'pending',
               'from': from,
               'to': to
             }));

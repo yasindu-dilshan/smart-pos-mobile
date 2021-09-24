@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_pos_mobile/constants.dart';
-import 'package:smart_pos_mobile/data/CartModel.dart';
+import 'package:smart_pos_mobile/data/cartModel.dart';
 import 'package:smart_pos_mobile/data/cartProduct.dart';
 import 'package:smart_pos_mobile/data/shop.dart';
 import 'package:smart_pos_mobile/data/stockProduct.dart';
@@ -77,34 +77,6 @@ class CartButton extends StatelessWidget {
   }
 }
 
-//
-// InkWell(
-// onTap: () {
-// Navigator.of(context).pushNamed(CartPage.routeName,
-// arguments: CartArguments(shop: shop));
-// },
-// child: Container(
-// padding: EdgeInsets.all(15),
-// width: size.width * .8,
-// decoration: BoxDecoration(
-// color: kPrimaryColor,
-// borderRadius: BorderRadius.all(Radius.circular(20))),
-// child: Row(
-// mainAxisAlignment: MainAxisAlignment.center,
-// children: [
-// Icon(
-// Icons.shopping_cart_outlined,
-// color: Colors.white,
-// ),
-// Text(
-// 'Cart',
-// style: TextStyle(color: Colors.white, fontSize: 18),
-// ),
-// ],
-// ),
-// ),
-// );
-
 class Items extends StatelessWidget {
   const Items({
     Key? key,
@@ -122,7 +94,6 @@ class Items extends StatelessWidget {
             );
           } else if (snapshot.hasData) {
             var stockProducts = snapshot.data as List<StockProduct>;
-            var cart = context.watch<CartModel>();
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
               child: GridView.builder(
@@ -235,3 +206,13 @@ class Items extends StatelessWidget {
 // ),
 // ),
 // );
+// FutureBuilder(
+// future: ShopService.getAssignedShops(Config.USER_ID),
+// builder: (context, snapshot){
+// if(snapshot.hasError){
+// print(snapshot.error);
+// }else if (snapshot.hasData){
+// var ShopList = snapshot.data as List<Shop>;
+// }
+// },
+// )

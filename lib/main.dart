@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:smart_pos_mobile/data/CartModel.dart';
+import 'package:smart_pos_mobile/data/cartModel.dart';
+import 'package:smart_pos_mobile/data/salesModel.dart';
 import 'package:smart_pos_mobile/pages/login_page.dart';
 import 'package:smart_pos_mobile/routes.dart';
 import 'package:smart_pos_mobile/theme.dart';
@@ -9,6 +10,7 @@ void main() {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => CartModel()),
+      ChangeNotifierProvider(create: (context) => SalesModel()),
     ],
     child: SmartPOSApp(),
   ));

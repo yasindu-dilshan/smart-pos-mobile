@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:smart_pos_mobile/config.dart';
+import 'package:smart_pos_mobile/data/shop.dart';
+import 'package:smart_pos_mobile/data/shopModel.dart';
 import 'package:smart_pos_mobile/pages/home_page.dart';
 import 'package:smart_pos_mobile/pages/profile_page.dart';
 import 'package:smart_pos_mobile/pages/stock_page.dart';
 import 'package:smart_pos_mobile/pages/view_leaves_page.dart';
+import 'package:smart_pos_mobile/services/shop_service.dart';
 
 class BottomNavigationPage extends StatefulWidget {
   static const routeName = '/bottomNavigationPage';
@@ -27,8 +32,17 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
     });
   }
 
+  // // Update Shop Model
+  // void updateShopModel(String? id) {
+  //   var shopList = ShopService.getAssignedShops(id) as List<Shop>;
+  //   for (var i = 0; i < shopList.length; i++) {
+  //     Provider.of<ShopModel>(context, listen: false).add(shopList[i]);
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
+    // updateShopModel(Config.USER_ID);
     return Scaffold(
       appBar: AppBar(
         title: Row(

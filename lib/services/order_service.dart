@@ -21,6 +21,21 @@ class OrderService {
     }
   }
 
+  static Future<List<Order>?> getOrdersOfOneSalesperson(String? id) async {
+    if (id != null) {
+      final response = await http.get(Uri.parse(
+          '${Config.BACKEND_URL}salesperson/ordersOfOneSalesperson/$id?sortBy=+createdAt'));
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return jsonDecode(response.body)['result'].map<Order>((data) {
+          return Order.fromJSON(data);
+        }).toList();
+      } else {
+        print(response.statusCode);
+        throw Exception('Failed to load the orders');
+      }
+    }
+  }
+
   static void addOrder(
       {required List? products,
       required String? shop,

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_pos_mobile/data/CartModel.dart';
+import 'package:smart_pos_mobile/data/cartModel.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_pos_mobile/data/cartProduct.dart';
 import 'package:smart_pos_mobile/data/shop.dart';

@@ -8,7 +8,7 @@ class Order {
   final String id;
   final String date;
   final int totalPrice;
-  final int receivedPrice;
+  int receivedPrice;
 
   // ignore: sort_constructors_first
   factory Order.fromJSON(Map<String, dynamic> data) {

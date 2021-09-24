@@ -11,6 +11,7 @@ import 'package:smart_pos_mobile/pages/shop_home_page.dart';
 import 'package:smart_pos_mobile/pages/stock_page.dart';
 import 'package:smart_pos_mobile/pages/test.dart';
 import 'package:smart_pos_mobile/pages/view_leaves_page.dart';
+import 'package:smart_pos_mobile/pages/view_orders_page.dart';
 import 'package:smart_pos_mobile/pages/view_shops_page.dart';
 
 final Map<String, WidgetBuilder> routes = {
@@ -27,4 +28,5 @@ final Map<String, WidgetBuilder> routes = {
   StockPage.routeName: (_) => StockPage(),
   CartPage.routeName: (_) => CartPage(),
   ProfilePage.routeName: (_) => ProfilePage(),
+  ViewOrdersPage.routeName: (_) => ViewOrdersPage()
 };
