@@ -94,7 +94,6 @@ class Items extends StatelessWidget {
             );
           } else if (snapshot.hasData) {
             var stockProducts = snapshot.data as List<StockProduct>;
-            var cart = context.watch<CartModel>();
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
               child: GridView.builder(
@@ -207,3 +206,13 @@ class Items extends StatelessWidget {
 // ),
 // ),
 // );
+// FutureBuilder(
+// future: ShopService.getAssignedShops(Config.USER_ID),
+// builder: (context, snapshot){
+// if(snapshot.hasError){
+// print(snapshot.error);
+// }else if (snapshot.hasData){
+// var ShopList = snapshot.data as List<Shop>;
+// }
+// },
+// )

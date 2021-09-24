@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_pos_mobile/config.dart';
 import 'package:smart_pos_mobile/data/leave.dart';
 import 'package:smart_pos_mobile/services/leave_service.dart';
 import 'package:smart_pos_mobile/widgets/leave_list.dart';
@@ -12,7 +13,7 @@ class ViewLeavePage extends StatelessWidget {
         title: Text('Leaves'),
       ),
       body: FutureBuilder(
-          future: LeaveService.getAllLeaves('613496813d385f4154c38d48'),
+          future: LeaveService.getAllLeaves(Config.USER_ID),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               print(snapshot.error);

@@ -4,6 +4,7 @@ import 'package:smart_pos_mobile/pages/bottom_navigation_page.dart';
 import 'package:smart_pos_mobile/pages/map_page.dart';
 import 'package:smart_pos_mobile/pages/add_leave_page.dart';
 import 'package:smart_pos_mobile/pages/view_leaves_page.dart';
+import 'package:smart_pos_mobile/pages/view_orders_page.dart';
 import 'package:smart_pos_mobile/pages/view_shops_page.dart';
 import 'package:smart_pos_mobile/widgets/menu_card.dart';
 
@@ -44,7 +45,7 @@ class HomePage extends StatelessWidget {
                         MenuCard(
                           asset: 'assets/images/checklist.png',
                           text: 'View Orders',
-                          routeName: AddShopPage.routeName,
+                          routeName: ViewOrdersPage.routeName,
                         ),
                         MenuCard(
                           asset: 'assets/images/shop.png',

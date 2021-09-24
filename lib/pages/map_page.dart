@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:smart_pos_mobile/config.dart';
+import 'package:smart_pos_mobile/data/shop.dart';
+import 'package:smart_pos_mobile/pages/shop_home_page.dart';
+import 'package:smart_pos_mobile/services/shop_service.dart';
 
 class MapPage extends StatelessWidget {
-  static const routeName = "/MapPage";
+  static const routeName = '/MapPage';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Assigned Shops"),
+        title: Text('Assigned Shops'),
       ),
       body: MapScreen(),
     );
@@ -22,70 +26,56 @@ class MapScreen extends StatefulWidget {
 
 class _MapScreenState extends State<MapScreen> {
   Set<Marker> _markers = {};
+  late List<Shop> shopList;
 
   void _onMapCreated(GoogleMapController controller) {
     setState(() {
-      _markers.add(
-        Marker(
-          markerId: MarkerId('id-1'),
-          position: LatLng(6.93, 79.8612),
-          infoWindow: InfoWindow(
-            title: "Shop name",
-            snippet: "Colombo",
+      for (var i = 0; i < shopList.length; i++) {
+        var shop = shopList[i];
+        print(double.parse(shop.latitude));
+        print('gg');
+        _markers.add(
+          Marker(
+            markerId: MarkerId(i.toString()),
+            position: LatLng(
+                double.parse(shop.latitude), double.parse(shop.longitude)),
+            infoWindow: InfoWindow(
+              title: shop.name,
+              snippet: shop.location,
+              onTap: () {
+                Navigator.of(context).pushNamed(ShopHomePage.routeName,
+                    arguments: ShopHomeArguments(shop: shop));
+              },
+            ),
           ),
-        ),
-      );
-      _markers.add(
-        Marker(
-          markerId: MarkerId('id-2'),
-          position: LatLng(6.9271, 79.8612),
-          infoWindow: InfoWindow(
-            title: "Colombo",
-            snippet: "Main City",
-          ),
-        ),
-      );
-      _markers.add(
-        Marker(
-          markerId: MarkerId('id-3'),
-          position: LatLng(6.935, 79.862),
-          infoWindow: InfoWindow(
-            title: "Colombo",
-            snippet: "Main City",
-          ),
-        ),
-      );
-      _markers.add(
-        Marker(
-          markerId: MarkerId('id-4'),
-          position: LatLng(6.936, 79.868),
-          infoWindow: InfoWindow(
-            title: "Colombo",
-            snippet: "Main City",
-          ),
-        ),
-      );
+        );
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GoogleMap(
-        onMapCreated: _onMapCreated,
-        markers: _markers,
-        myLocationButtonEnabled: false,
-        zoomControlsEnabled: false,
-        initialCameraPosition:
-            CameraPosition(target: LatLng(6.9271, 79.8612), zoom: 15),
-      ),
-      // floatingActionButton: FloatingActionButton(
-      //   foregroundColor: Colors.black,
-      //   onPressed: () => _googleMapController.animateCamera(
-      //     CameraUpdate.newCameraPosition(_initialCameraPosition),
-      //   ),
-      //   child: Icon(Icons.center_focus_strong),
-      // ),
-    );
+        body: FutureBuilder(
+      future: ShopService.getAssignedShops(Config.USER_ID),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          print(snapshot.error);
+        } else if (snapshot.hasData) {
+          shopList = snapshot.data as List<Shop>;
+          return GoogleMap(
+            onMapCreated: _onMapCreated,
+            markers: _markers,
+            myLocationButtonEnabled: true,
+            zoomControlsEnabled: true,
+            initialCameraPosition:
+                CameraPosition(target: LatLng(6.9271, 79.8612), zoom: 15),
+          );
+        }
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    ));
   }
 }
