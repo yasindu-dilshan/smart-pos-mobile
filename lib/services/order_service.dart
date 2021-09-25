@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:smart_pos_mobile/config.dart';
+import 'package:smart_pos_mobile/data/salespersonOrder.dart';
 
 class OrderService {
   static Future<List<Order>?> getOrderOfOneShop(String? id) async {
@@ -21,13 +22,15 @@ class OrderService {
     }
   }
 
-  static Future<List<Order>?> getOrdersOfOneSalesperson(String? id) async {
+  static Future<List<SalespersonOrder>?> getOrdersOfOneSalesperson(
+      String? id) async {
     if (id != null) {
       final response = await http.get(Uri.parse(
           '${Config.BACKEND_URL}salesperson/ordersOfOneSalesperson/$id?sortBy=+createdAt'));
       if (response.statusCode == 200 || response.statusCode == 201) {
-        return jsonDecode(response.body)['result'].map<Order>((data) {
-          return Order.fromJSON(data);
+        return jsonDecode(response.body)['result']
+            .map<SalespersonOrder>((data) {
+          return SalespersonOrder.fromJSON(data);
         }).toList();
       } else {
         print(response.statusCode);

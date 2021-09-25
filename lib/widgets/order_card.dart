@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:smart_pos_mobile/data/order.dart';
+import 'package:smart_pos_mobile/data/salespersonOrder.dart';
 import 'package:smart_pos_mobile/data/shop.dart';
 import 'package:smart_pos_mobile/pages/shop_home_page.dart';
 
 class OrderCard extends StatelessWidget {
   const OrderCard({required this.order});
-  final Order order;
+  final SalespersonOrder order;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,10 @@ class OrderCard extends StatelessWidget {
           style: Theme.of(context).textTheme.headline6,
         ),
         subtitle: Text(
-          'Rs. ' + order.totalPrice.toString(),
+          'Shop: ' +
+              order.shopName +
+              ' | Total : Rs. ' +
+              order.totalPrice.toString(),
         ),
         trailing: Icon(
           Icons.forward,

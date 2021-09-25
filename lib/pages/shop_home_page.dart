@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:provider/provider.dart';
+import 'package:smart_pos_mobile/config.dart';
 import 'package:smart_pos_mobile/data/cartModel.dart';
 import 'package:smart_pos_mobile/data/cartProduct.dart';
 import 'package:smart_pos_mobile/data/shop.dart';
@@ -26,18 +27,23 @@ class ShopHomePage extends StatelessWidget {
     Future<void> scan() async {
       var id = await FlutterBarcodeScanner.scanBarcode(
           '#000000', 'Cancel', true, ScanMode.BARCODE);
-      var product = await ProductService.getOneProduct(id);
-      if (!Provider.of<CartModel>(context, listen: false)
-          .isCartProductIn(product!.id)) {
-        var cartProduct = CartProduct(
-            id: product.id,
-            name: product.name,
-            uniPrice: product.unitPrice,
-            stockQuantity: product.quantity,
-            selectedQuantity: 0,
-            photo: product.photo,
-            sales: product.sales);
-        Provider.of<CartModel>(context, listen: false).add(cartProduct);
+      var productList = await ProductService.getOneProduct(Config.USER_ID, id);
+      for (var i = 0; i < productList!.length; i++) {
+        var product = productList[i];
+        if (product.id == id) {
+          if (!Provider.of<CartModel>(context, listen: false)
+              .isCartProductIn(product.id)) {
+            var cartProduct = CartProduct(
+                id: product.id,
+                name: product.name,
+                uniPrice: product.unitPrice,
+                stockQuantity: product.quantity,
+                selectedQuantity: 0,
+                photo: product.photo,
+                sales: product.sales);
+            Provider.of<CartModel>(context, listen: false).add(cartProduct);
+          }
+        }
       }
     }
 
