@@ -13,9 +13,10 @@ class Order {
   // ignore: sort_constructors_first
   factory Order.fromJSON(Map<String, dynamic> data) {
     return Order(
-        id: data['_id'],
-        date: data['createdAt'],
-        totalPrice: data['totalPrice'],
-        receivedPrice: data['receivedPrice']);
+      id: data['_id'],
+      date: data['createdAt'],
+      totalPrice: data['totalPrice'],
+      receivedPrice: data['receivedPrice'],
+    );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_pos_mobile/config.dart';
 import 'package:smart_pos_mobile/data/order.dart';
+import 'package:smart_pos_mobile/data/salespersonOrder.dart';
 import 'package:smart_pos_mobile/data/shop.dart';
 import 'package:smart_pos_mobile/services/order_service.dart';
 import 'package:smart_pos_mobile/services/shop_service.dart';
@@ -30,7 +31,7 @@ class ViewOrdersPage extends StatelessWidget {
                       child: Text('Error'),
                     );
                   } else if (snapshot.hasData) {
-                    var orders = snapshot.data as List<Order>?;
+                    var orders = snapshot.data as List<SalespersonOrder>?;
                     return Container(
                       padding:
                           EdgeInsets.symmetric(vertical: 0, horizontal: 10),
