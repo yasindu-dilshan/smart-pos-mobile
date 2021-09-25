@@ -25,7 +25,12 @@ class NewInvoicePage extends StatelessWidget {
           children: [
             //Cart Button
             CartButton(shop: shop, size: size),
-            RoundedInput(size: size, icon: Icons.search, hintText: 'Search'),
+            RoundedInput(
+              size: size,
+              icon: Icons.search,
+              hintText: 'Search',
+              controller: null,
+            ),
             Items(),
           ],
         ),

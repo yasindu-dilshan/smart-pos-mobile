@@ -7,10 +7,12 @@ import 'package:smart_pos_mobile/pages/home_page.dart';
 import 'package:smart_pos_mobile/pages/profile_page.dart';
 import 'package:smart_pos_mobile/pages/stock_page.dart';
 import 'package:smart_pos_mobile/pages/view_leaves_page.dart';
+import 'package:smart_pos_mobile/services/auth_service.dart';
 import 'package:smart_pos_mobile/services/shop_service.dart';
 
 class BottomNavigationPage extends StatefulWidget {
   static const routeName = '/bottomNavigationPage';
+
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static final List<Widget> _widgetOptions = <Widget>[
@@ -32,14 +34,6 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
     });
   }
 
-  // // Update Shop Model
-  // void updateShopModel(String? id) {
-  //   var shopList = ShopService.getAssignedShops(id) as List<Shop>;
-  //   for (var i = 0; i < shopList.length; i++) {
-  //     Provider.of<ShopModel>(context, listen: false).add(shopList[i]);
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     // updateShopModel(Config.USER_ID);
@@ -47,7 +41,9 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
       appBar: AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [Text('SMART POS')],
+          children: [
+            Text('SMART POS'),
+          ],
         ),
         automaticallyImplyLeading: false,
       ),
