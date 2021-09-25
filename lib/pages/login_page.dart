@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:smart_pos_mobile/constants.dart';
 import 'package:smart_pos_mobile/pages/bottom_navigation_page.dart';
 import 'package:smart_pos_mobile/pages/home_page.dart';
+import 'package:smart_pos_mobile/services/auth_service.dart';
 import 'package:smart_pos_mobile/widgets/rounded_input.dart';
 import 'package:smart_pos_mobile/widgets/rounded_password_input.dart';
 
@@ -14,16 +16,15 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final authService = Provider.of<AuthService>(context);
 
-    double viewInset = MediaQuery.of(context)
-        .viewInsets
-        .bottom; // we are using this to determine Keyboard is opened or not
-    double defaultLoginSize = size.height - (size.height * 0.2);
-    double defaultRegisterSize = size.height - (size.height * 0.1);
-
+    var size = MediaQuery.of(context).size;
+    var defaultLoginSize = size.height - (size.height * 0.2);
     return Scaffold(
       body: Stack(
         children: [
@@ -38,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Welcome Back",
+                      'Welcome Back',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 24,
@@ -47,18 +48,33 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(
                       height: 40,
                     ),
-                    SvgPicture.asset("assets/images/login.svg"),
+                    SvgPicture.asset('assets/images/login.svg'),
                     SizedBox(
                       height: 40,
                     ),
                     RoundedInput(
-                        size: size, icon: Icons.email, hintText: "Email"),
+                      size: size,
+                      icon: Icons.email,
+                      hintText: 'Email',
+                      controller: emailController,
+                    ),
                     RoundedPasswordInput(
-                        icon: Icons.lock, hintText: "Password", size: size),
+                      icon: Icons.lock,
+                      hintText: 'Password',
+                      size: size,
+                      controller: passwordController,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
                     InkWell(
                       onTap: () {
-                        Navigator.of(context)
-                            .pushNamed(BottomNavigationPage.routeName);
+                        authService.signInWithEmailAndPassword(
+                          emailController.text.trim(),
+                          passwordController.text.trim(),
+                        );
+                        // Navigator.of(context)
+                        //     .pushNamed(BottomNavigationPage.routeName);
                       },
                       child: Container(
                         padding: EdgeInsets.symmetric(vertical: 20),
@@ -68,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                             color: kPrimaryColor,
                             borderRadius: BorderRadius.circular(30)),
                         child: Text(
-                          "LOGIN",
+                          'LOGIN',
                           style: TextStyle(color: Colors.white, fontSize: 18),
                         ),
                       ),

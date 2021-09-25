@@ -16,7 +16,12 @@ class ViewShopPage extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              RoundedInput(size: size, icon: Icons.search, hintText: 'Search'),
+              RoundedInput(
+                size: size,
+                icon: Icons.search,
+                hintText: 'Search',
+                controller: null,
+              ),
               FutureBuilder(
                 future: ShopService.getAllShops(),
                 builder: (context, snapshot) {

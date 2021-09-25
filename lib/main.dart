@@ -3,12 +3,20 @@ import 'package:smart_pos_mobile/data/cartModel.dart';
 import 'package:smart_pos_mobile/data/salesModel.dart';
 import 'package:smart_pos_mobile/pages/login_page.dart';
 import 'package:smart_pos_mobile/routes.dart';
+import 'package:smart_pos_mobile/services/auth_service.dart';
 import 'package:smart_pos_mobile/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:smart_pos_mobile/wrapper.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MultiProvider(
     providers: [
+      Provider<AuthService>(
+        create: (_) => AuthService(),
+      ),
       ChangeNotifierProvider(create: (context) => CartModel()),
       ChangeNotifierProvider(create: (context) => SalesModel()),
     ],
@@ -24,7 +32,7 @@ class SmartPOSApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: MyTheme.lightTheme,
       routes: routes,
-      home: LoginPage(),
+      home: Wrapper(),
     );
   }
 }

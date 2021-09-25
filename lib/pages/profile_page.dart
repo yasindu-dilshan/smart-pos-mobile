@@ -1,11 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/parser.dart';
+import 'package:provider/provider.dart';
+import 'package:smart_pos_mobile/services/auth_service.dart';
 
 class ProfilePage extends StatelessWidget {
   static const routeName = '/profilePage';
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
+    Future createAlertDialog(BuildContext context, authService) {
+      return showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('Are You Sure ?'),
+              actions: [
+                ElevatedButton(
+                  onPressed: () async {
+                    await authService.signOut();
+                    Navigator.pop(context);
+                  },
+                  style: ElevatedButton.styleFrom(primary: Colors.red),
+                  child: Text(
+                    'Yes',
+                    style: TextStyle(fontWeight: FontWeight.w700),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  style: ElevatedButton.styleFrom(primary: Colors.blue),
+                  child: Text(
+                    'No',
+                    style: TextStyle(fontWeight: FontWeight.w700),
+                  ),
+                ),
+              ],
+            );
+          });
+    }
+
     return Scaffold(
       body: Column(
         children: [
@@ -30,7 +66,9 @@ class ProfilePage extends StatelessWidget {
           ProfileMenu(
             text: 'Logout',
             icon: Icons.logout,
-            press: () {},
+            press: () {
+              createAlertDialog(context, authService);
+            },
           ),
         ],
       ),

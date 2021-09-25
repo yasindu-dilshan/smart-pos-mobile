@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "259006355183",
+    "project_id": "smart-pos-9254b",
+    "storage_bucket": "smart-pos-9254b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:259006355183:android:b5b7c3c2c665d8bc3f6d1a",
+        "android_client_info": {
+          "package_name": "yasindudilshan.smart_pos_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "259006355183-1ajrh8ckscp3jjtiq5c51edtll4ujtl0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYgzE7cWIAt1UyDwD74urSzRX15RK2ync"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "259006355183-1ajrh8ckscp3jjtiq5c51edtll4ujtl0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
