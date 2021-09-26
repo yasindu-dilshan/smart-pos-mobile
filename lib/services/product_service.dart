@@ -18,14 +18,11 @@ class ProductService {
               productId);
           return jsonDecode(response.body)['result']['dailyProducts']
               .map<StockProduct>((data) {
-            print('gg');
-
             var stockProduct = StockProduct.fromJSON(data);
             return stockProduct;
           }).toList();
         }
       } catch (e) {
-        print('ggggggggggggggggggg');
         print(e);
       }
     }

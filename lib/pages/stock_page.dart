@@ -29,7 +29,7 @@ class StockPage extends StatelessWidget {
                   if (snapshot.hasError) {
                     print(snapshot.error);
                     return Center(
-                      child: Text('Error'),
+                      child: Text('Please Try Again!'),
                     );
                   } else if (snapshot.hasData) {
                     var stockProducts = snapshot.data as List<StockProduct>;

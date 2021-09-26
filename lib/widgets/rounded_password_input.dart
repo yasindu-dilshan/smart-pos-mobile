@@ -18,8 +18,14 @@ class RoundedPasswordInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return InputContainer(
       size: size,
-      child: TextField(
+      child: TextFormField(
         controller: controller,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter your password';
+          }
+          return null;
+        },
         obscureText: true,
         decoration: InputDecoration(
           icon: Icon(
