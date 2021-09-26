@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:smart_pos_mobile/config.dart';
 import 'package:smart_pos_mobile/data/leave.dart';
+import 'package:smart_pos_mobile/data/salespersonModel.dart';
 import 'package:smart_pos_mobile/services/leave_service.dart';
 import 'package:smart_pos_mobile/widgets/leave_list.dart';
+import 'package:provider/provider.dart';
 
 class ViewLeavePage extends StatelessWidget {
   static const routeName = '/ViewLeavePage';
   @override
   Widget build(BuildContext context) {
+    var sModel = context.watch<SalespersonModel>();
     return Scaffold(
       appBar: AppBar(
         title: Text('Leaves'),
       ),
       body: FutureBuilder(
-          future: LeaveService.getAllLeaves(Config.USER_ID),
+          future: LeaveService.getAllLeaves(sModel.getSalespersonId()),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               print(snapshot.error);

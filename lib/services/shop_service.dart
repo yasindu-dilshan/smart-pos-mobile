@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'package:smart_pos_mobile/config.dart';
+import 'package:smart_pos_mobile/data/salespersonModel.dart';
 import 'package:smart_pos_mobile/data/shop.dart';
 import 'package:smart_pos_mobile/data/shop.dart';
 import 'package:location/location.dart';
@@ -40,7 +42,7 @@ class ShopService {
   }
 
   static void addShop(String name, String ownerName, String email,
-      String telephone, String loc, String address) async {
+      String telephone, String loc, String address, String wareHouseId) async {
     // Location
     var location = Location();
 
@@ -80,7 +82,7 @@ class ShopService {
               'latitude': _locationData.latitude.toString(),
               'ownerName': ownerName,
               'address': address,
-              'warehouse': Config.WAREHOUSE_ID
+              'warehouse': wareHouseId
             }));
     if (response.statusCode == 200 || response.statusCode == 201) {
       return;

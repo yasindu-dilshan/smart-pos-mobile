@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:smart_pos_mobile/data/cartModel.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_pos_mobile/data/cartProduct.dart';
+import 'package:smart_pos_mobile/data/salespersonModel.dart';
 import 'package:smart_pos_mobile/data/shop.dart';
 import 'package:smart_pos_mobile/services/order_service.dart';
 
@@ -118,8 +119,8 @@ class _CartTotal extends StatelessWidget {
   _CartTotal({required this.shop});
   final Shop shop;
 
-  Future createAlertDialog(
-      BuildContext context, CartModel cart, Shop shop, List products) {
+  Future createAlertDialog(BuildContext context, CartModel cart, Shop shop,
+      List products, SalespersonModel sModel) {
     var totalPrice = cart.totalPrice();
     var controller = TextEditingController();
     return showDialog(
@@ -140,7 +141,7 @@ class _CartTotal extends StatelessWidget {
                   var a = OrderService.addOrder(
                       products: products,
                       shop: shop.id,
-                      salesperson: '${Config.USER_ID}',
+                      salesperson: sModel.getSalespersonId(),
                       totalPrice: totalPrice,
                       receivedPrice: int.parse(controller.text));
                   cart.removeAll();
@@ -168,6 +169,7 @@ class _CartTotal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cart = context.watch<CartModel>();
+    var sModel = context.watch<SalespersonModel>();
     return SizedBox(
       height: 200,
       child: Center(
@@ -194,7 +196,7 @@ class _CartTotal extends StatelessWidget {
               icon: Icon(Icons.open_in_new),
               onPressed: () {
                 var products = cart.getProducts();
-                createAlertDialog(context, cart, shop, products!);
+                createAlertDialog(context, cart, shop, products!, sModel);
                 // print(products);
               },
               label: Text(

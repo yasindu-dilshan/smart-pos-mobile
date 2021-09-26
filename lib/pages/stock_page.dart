@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:smart_pos_mobile/config.dart';
+import 'package:smart_pos_mobile/data/salespersonModel.dart';
 import 'package:smart_pos_mobile/data/stockProduct.dart';
 import 'package:smart_pos_mobile/services/stockProduct_service.dart';
+import 'package:provider/provider.dart';
 
 class StockPage extends StatelessWidget {
   static const routeName = '/stockPage';
   @override
   Widget build(BuildContext context) {
+    var sModel = context.watch<SalespersonModel>();
     return Scaffold(
       // appBar: AppBar(
       //   title: Text('Stock'),
@@ -23,8 +26,8 @@ class StockPage extends StatelessWidget {
           ),
           Expanded(
             child: FutureBuilder(
-                future:
-                    StockProductService.getStockProducts('${Config.USER_ID}'),
+                future: StockProductService.getStockProducts(
+                    sModel.getSalespersonId()),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     print(snapshot.error);

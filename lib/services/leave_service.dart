@@ -17,14 +17,15 @@ class LeaveService {
     }
   }
 
-  static void addLeave(String description, String from, String to) async {
+  static void addLeave(
+      String description, String from, String to, String id) async {
     final response =
         await http.post(Uri.parse('${Config.BACKEND_URL}salesperson/leave'),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8',
             },
             body: jsonEncode(<String, String>{
-              'userId': Config.USER_ID,
+              'userId': id,
               'description': description,
               'approved': 'pending',
               'from': from,
