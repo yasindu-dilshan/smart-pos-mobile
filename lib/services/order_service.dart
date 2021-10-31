@@ -27,6 +27,7 @@ class OrderService {
     if (id != null) {
       final response = await http.get(Uri.parse(
           '${Config.BACKEND_URL}salesperson/ordersOfOneSalesperson/$id?sortBy=+createdAt'));
+      print(response.body);
       if (response.statusCode == 200 || response.statusCode == 201) {
         return jsonDecode(response.body)['result']
             .map<SalespersonOrder>((data) {

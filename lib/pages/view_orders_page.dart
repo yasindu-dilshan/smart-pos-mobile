@@ -19,12 +19,6 @@ class ViewOrdersPage extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              RoundedInput(
-                size: size,
-                icon: Icons.search,
-                hintText: 'Search',
-                controller: null,
-              ),
               FutureBuilder(
                 future: OrderService.getOrdersOfOneSalesperson(
                     sModel.getSalespersonId()),
@@ -35,6 +29,7 @@ class ViewOrdersPage extends StatelessWidget {
                       child: Text('Error'),
                     );
                   } else if (snapshot.hasData) {
+                    print('gg');
                     var orders = snapshot.data as List<SalespersonOrder>?;
                     return Container(
                       padding:
@@ -45,7 +40,10 @@ class ViewOrdersPage extends StatelessWidget {
                     );
                   }
                   return Center(
-                    child: CircularProgressIndicator(),
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: CircularProgressIndicator(),
+                    ),
                   );
                 },
               ),
