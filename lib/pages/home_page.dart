@@ -1,24 +1,23 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_pos_mobile/data/salespersonModel.dart';
 import 'package:smart_pos_mobile/pages/add_shop_page.dart';
-import 'package:smart_pos_mobile/pages/bottom_navigation_page.dart';
 import 'package:smart_pos_mobile/pages/map_page.dart';
 import 'package:smart_pos_mobile/pages/add_leave_page.dart';
 import 'package:smart_pos_mobile/pages/view_leaves_page.dart';
 import 'package:smart_pos_mobile/pages/view_orders_page.dart';
 import 'package:smart_pos_mobile/pages/view_shops_page.dart';
+import 'package:smart_pos_mobile/services/auth_service.dart';
 import 'package:smart_pos_mobile/widgets/menu_card.dart';
 
 class HomePage extends StatelessWidget {
   static const routeName = '/homePag';
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
     var sModel = context.watch<SalespersonModel>();
-    // var name = Provider.of<SalespersonModel>(context, listen: false)
-    //     .getSalespersonName();
-    //     .getSalespersonName();
-    var size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
         child: Padding(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:smart_pos_mobile/config.dart';
 import 'package:smart_pos_mobile/data/salespersonModel.dart';
 import 'package:smart_pos_mobile/data/stockProduct.dart';
 import 'package:smart_pos_mobile/services/stockProduct_service.dart';
@@ -11,9 +10,6 @@ class StockPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var sModel = context.watch<SalespersonModel>();
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('Stock'),
-      // ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 10),
         child: Column(children: [
@@ -80,7 +76,6 @@ class StockPage extends StatelessWidget {
                           child: Container(
                             height: 32,
                             alignment: Alignment.center,
-                            // color: Colors.blueGrey,
                             child: Text(
                               stockProducts[i].name,
                               style: TextStyle(fontWeight: FontWeight.w700),
@@ -93,7 +88,6 @@ class StockPage extends StatelessWidget {
                           child: Container(
                             height: 32,
                             alignment: Alignment.center,
-                            // color: Colors.blueGrey,
                             child: Text(
                               'Rs. ' + stockProducts[i].unitPrice.toString(),
                               style: TextStyle(fontWeight: FontWeight.w700),
@@ -106,7 +100,6 @@ class StockPage extends StatelessWidget {
                           child: Container(
                             height: 32,
                             alignment: Alignment.center,
-                            // color: Colors.blueGrey,
                             child: Text(
                               (stockProducts[i].quantity -
                                       stockProducts[i].sales)

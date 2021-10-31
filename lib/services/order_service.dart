@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 import 'package:smart_pos_mobile/data/order.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -33,7 +33,6 @@ class OrderService {
           return SalespersonOrder.fromJSON(data);
         }).toList();
       } else {
-        print(response.statusCode);
         throw Exception('Failed to load the orders');
       }
     }
@@ -58,8 +57,44 @@ class OrderService {
               'receivedPrice': receivedPrice
             }));
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print('Done');
-      return;
+      // Location
+      var location = Location();
+
+      bool _serviceEnabled;
+      PermissionStatus _permissionGranted;
+      LocationData _locationData;
+
+      _serviceEnabled = await location.serviceEnabled();
+      if (!_serviceEnabled) {
+        _serviceEnabled = await location.requestService();
+        if (!_serviceEnabled) {
+          return;
+        }
+      }
+
+      _permissionGranted = await location.hasPermission();
+      if (_permissionGranted == PermissionStatus.denied) {
+        _permissionGranted = await location.requestPermission();
+        if (_permissionGranted != PermissionStatus.granted) {
+          return;
+        }
+      }
+      _locationData = await location.getLocation();
+
+      final response1 = await http.patch(Uri.parse('${Config.BACKEND_URL}users/updateLocation/$salesperson'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(<String, dynamic>{
+            'longitude': _locationData.longitude.toString(),
+            'latitude': _locationData.latitude.toString()
+          }));
+      if(response1.statusCode == 200 || response1.statusCode == 201){
+        print('Done');
+        return;
+      }else{
+        return;
+      }
     } else {
       print(response.statusCode);
       return;

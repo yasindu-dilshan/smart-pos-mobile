@@ -27,6 +27,7 @@ void main() async {
 }
 
 class SmartPOSApp extends StatelessWidget {
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class SmartPOSApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: MyTheme.lightTheme,
       routes: routes,
-      home: Wrapper(),
+      home: LoginPage(),
     );
   }
 }

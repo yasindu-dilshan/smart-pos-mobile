@@ -1,11 +1,4 @@
 class Leave {
-  final String id;
-  final String description;
-  final String from;
-  final String to;
-  final String approved;
-
-  // ignore: sort_constructors_first
   Leave(
       {required this.id,
       required this.description,
@@ -13,7 +6,6 @@ class Leave {
       required this.to,
       required this.approved});
 
-  // ignore: sort_constructors_first
   factory Leave.fromJSON(Map<String, dynamic> data) {
     return Leave(
         id: data['_id'],
@@ -22,4 +14,9 @@ class Leave {
         to: data['to'],
         approved: data['approved']);
   }
+  final String id;
+  final String description;
+  final String from;
+  final String to;
+  final String approved;
 }

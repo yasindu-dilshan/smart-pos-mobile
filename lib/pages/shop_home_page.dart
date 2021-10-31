@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_pos_mobile/config.dart';
 import 'package:smart_pos_mobile/data/cartModel.dart';
 import 'package:smart_pos_mobile/data/cartProduct.dart';
 import 'package:smart_pos_mobile/data/salespersonModel.dart';
@@ -65,15 +64,12 @@ class ShopHomePage extends StatelessWidget {
             bottom: TabBar(
               tabs: [
                 Tab(
-                  // icon: Icon(Icons.details),
                   text: 'Details',
                 ),
                 Tab(
-                  // icon: Icon(Icons.shopping_cart_outlined),
                   text: 'Sales',
                 ),
                 Tab(
-                  // icon: Icon(Icons.add_shopping_cart_rounded),
                   text: 'New Invoice',
                 )
               ],

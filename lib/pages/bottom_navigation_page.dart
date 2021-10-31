@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_pos_mobile/config.dart';
-import 'package:smart_pos_mobile/data/shop.dart';
-import 'package:smart_pos_mobile/data/shopModel.dart';
 import 'package:smart_pos_mobile/pages/home_page.dart';
-import 'package:smart_pos_mobile/pages/logout_page.dart';
-import 'package:smart_pos_mobile/pages/profile_page.dart';
+import 'package:smart_pos_mobile/pages/login_page.dart';
 import 'package:smart_pos_mobile/pages/stock_page.dart';
-import 'package:smart_pos_mobile/pages/view_leaves_page.dart';
 import 'package:smart_pos_mobile/services/auth_service.dart';
-import 'package:smart_pos_mobile/services/shop_service.dart';
 
 class BottomNavigationPage extends StatefulWidget {
   static const routeName = '/bottomNavigationPage';
@@ -19,7 +13,6 @@ class BottomNavigationPage extends StatefulWidget {
   static final List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     StockPage(),
-    // LogoutPage(),
   ];
 
   @override
@@ -38,7 +31,8 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
               ElevatedButton(
                 onPressed: () async {
                   await authService.signOut();
-                  Navigator.pop(context);
+                  Navigator.popUntil(context, ModalRoute.withName(LoginPage.routeName));
+                  await Navigator.of(context).pushNamed(LoginPage.routeName);
                 },
                 style: ElevatedButton.styleFrom(primary: Colors.red),
                 child: Text(
@@ -107,10 +101,6 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
             icon: Icon(Icons.view_list),
             label: 'Stock',
           ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.manage_accounts),
-          //   label: 'Profile',
-          // ),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.blue[700],

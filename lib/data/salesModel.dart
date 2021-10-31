@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:smart_pos_mobile/data/order.dart';
 
 class SalesModel extends ChangeNotifier {
-  List<Order> _items = [];
+  final List<Order> _items = [];
   UnmodifiableListView<Order> get items => UnmodifiableListView(_items);
 
   int get count => _items.length;

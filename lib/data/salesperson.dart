@@ -6,11 +6,6 @@ class Salesperson {
     required this.email,
     required this.warehouseId,
   });
-  final String id;
-  final String firstName;
-  final String lastName;
-  final String email;
-  final String warehouseId;
 
   factory Salesperson.fromJSON(Map<String, dynamic> data) {
     return Salesperson(
@@ -20,4 +15,10 @@ class Salesperson {
         email: data['email'],
         warehouseId: data['warehouseId']);
   }
+
+  final String id;
+  final String firstName;
+  final String lastName;
+  final String email;
+  final String warehouseId;
 }

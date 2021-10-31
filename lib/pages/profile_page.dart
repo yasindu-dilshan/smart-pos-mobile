@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_svg/parser.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_pos_mobile/services/auth_service.dart';
 

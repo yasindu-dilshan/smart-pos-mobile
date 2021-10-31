@@ -2,12 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_pos_mobile/data/cartModel.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_pos_mobile/data/cartProduct.dart';
 import 'package:smart_pos_mobile/data/salespersonModel.dart';
 import 'package:smart_pos_mobile/data/shop.dart';
 import 'package:smart_pos_mobile/services/order_service.dart';
-
-import '../config.dart';
 
 class CartArguments {
   CartArguments({required this.shop});
@@ -138,7 +135,7 @@ class _CartTotal extends StatelessWidget {
             actions: [
               ElevatedButton(
                 onPressed: () {
-                  var a = OrderService.addOrder(
+                  OrderService.addOrder(
                       products: products,
                       shop: shop.id,
                       salesperson: sModel.getSalespersonId(),

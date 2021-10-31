@@ -9,6 +9,7 @@ class ShopCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      key: const Key('shop_item'),
       child: ListTile(
         onTap: () {
           Navigator.of(context).pushNamed(ShopHomePage.routeName,

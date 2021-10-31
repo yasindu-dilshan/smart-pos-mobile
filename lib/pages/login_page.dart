@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:smart_pos_mobile/constants.dart';
 import 'package:smart_pos_mobile/data/salesperson.dart';
 import 'package:smart_pos_mobile/data/salespersonModel.dart';
+import 'package:smart_pos_mobile/pages/bottom_navigation_page.dart';
 import 'package:smart_pos_mobile/services/auth_service.dart';
 import 'package:smart_pos_mobile/services/salesperson_service.dart';
 import 'package:smart_pos_mobile/widgets/rounded_input.dart';
@@ -23,7 +24,8 @@ class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  String? _error = null;
+  String? _error;
+  bool _pressed = false;
   User? userFromFirebase(auth.User? user) {
     if (user == null) {
       return null;
@@ -31,7 +33,7 @@ class _LoginPageState extends State<LoginPage> {
     return User(uid: user.uid, email: user.email);
   }
 
-  auth.FirebaseAuth _firebaseAuth = auth.FirebaseAuth.instance;
+  final auth.FirebaseAuth _firebaseAuth = auth.FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     var sModel = context.watch<SalespersonModel>();
@@ -104,10 +106,6 @@ class _LoginPageState extends State<LoginPage> {
                         SizedBox(
                           height: 40,
                         ),
-                        // SvgPicture.asset('assets/images/login.svg'),
-                        // SizedBox(
-                        //   height: 40,
-                        // ),
                         RoundedInput(
                           size: size,
                           icon: Icons.email,
@@ -125,6 +123,9 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         InkWell(
                           onTap: () async {
+                            setState(() {
+                              _pressed = true;
+                            });
                             if (_formKey.currentState!.validate()) {
                               try {
                                 final credential = await _firebaseAuth
@@ -132,22 +133,19 @@ class _LoginPageState extends State<LoginPage> {
                                         email: emailController.text.trim(),
                                         password:
                                             passwordController.text.trim());
+                                var token = await credential.user!.getIdToken();
                                 var user = userFromFirebase(credential.user);
-                                print(user!.email);
                                 var salesperson =
                                     await SalespersonService.getSalesperson(
-                                        user.uid);
-                                print(salesperson.firstName);
+                                        user!.uid);
                                 sModel.assignedSalesperson(salesperson);
-                                // myfn(salesperson);
-                                // Provider.of<SalespersonModel>(context,
-                                //         listen: false)
-                                //     .assignedSalesperson(salesperson);
-                                print('gg');
+                                sModel.assignedToken(token);
+                                await Navigator.of(context).pushNamed(BottomNavigationPage.routeName);
                               } catch (e) {
                                 print(e);
                                 setState(() {
                                   _error = e.toString();
+                                  _pressed = false;
                                 });
                               }
                             }
@@ -165,7 +163,11 @@ class _LoginPageState extends State<LoginPage> {
                                   TextStyle(color: Colors.white, fontSize: 18),
                             ),
                           ),
-                        )
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        _pressed ? CircularProgressIndicator() : Container(),
                       ],
                     ),
                   ),

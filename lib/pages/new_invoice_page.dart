@@ -11,8 +11,6 @@ import 'package:smart_pos_mobile/pages/cart.dart';
 import 'package:smart_pos_mobile/services/stockProduct_service.dart';
 import 'package:smart_pos_mobile/widgets/rounded_input.dart';
 
-import '../config.dart';
-
 class NewInvoicePage extends StatelessWidget {
   NewInvoicePage({required this.shop});
   final Shop shop;

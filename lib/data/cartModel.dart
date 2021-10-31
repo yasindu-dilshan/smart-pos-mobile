@@ -1,15 +1,11 @@
 import 'dart:collection';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:smart_pos_mobile/data/cartProduct.dart';
-import 'package:smart_pos_mobile/data/stockProduct.dart';
 
 class CartModel extends ChangeNotifier {
-  List<CartProduct> _items = [];
+  final List<CartProduct> _items = [];
   UnmodifiableListView<CartProduct> get items => UnmodifiableListView(_items);
 
-  // int get totalPrice => _items.length * 42;
   int get count => _items.length;
 
   int? totalPrice() {

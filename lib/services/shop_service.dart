@@ -1,10 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
 import 'package:smart_pos_mobile/config.dart';
-import 'package:smart_pos_mobile/data/salespersonModel.dart';
-import 'package:smart_pos_mobile/data/shop.dart';
 import 'package:smart_pos_mobile/data/shop.dart';
 import 'package:location/location.dart';
 
@@ -67,7 +64,6 @@ class ShopService {
     }
 
     _locationData = await location.getLocation();
-    print(_locationData.longitude);
     final response =
         await http.post(Uri.parse('${Config.BACKEND_URL}salesperson/shop'),
             headers: <String, String>{

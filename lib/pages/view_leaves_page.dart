@@ -1,5 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_pos_mobile/config.dart';
 import 'package:smart_pos_mobile/data/leave.dart';
 import 'package:smart_pos_mobile/data/salespersonModel.dart';
 import 'package:smart_pos_mobile/services/leave_service.dart';
@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 
 class ViewLeavePage extends StatelessWidget {
   static const routeName = '/ViewLeavePage';
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     var sModel = context.watch<SalespersonModel>();

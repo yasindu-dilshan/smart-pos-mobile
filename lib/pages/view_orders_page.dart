@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:smart_pos_mobile/config.dart';
 import 'package:smart_pos_mobile/data/salespersonModel.dart';
 import 'package:smart_pos_mobile/data/salespersonOrder.dart';
 import 'package:smart_pos_mobile/services/order_service.dart';

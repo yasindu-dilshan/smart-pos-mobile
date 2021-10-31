@@ -4,9 +4,14 @@ import 'package:smart_pos_mobile/data/salesperson.dart';
 
 class SalespersonModel extends ChangeNotifier {
   late Salesperson _salesperson;
+  late String _token;
 
   void assignedSalesperson(Salesperson salesperson) {
     _salesperson = salesperson;
+    notifyListeners();
+  }
+  void assignedToken(String token){
+    _token = token;
     notifyListeners();
   }
 
