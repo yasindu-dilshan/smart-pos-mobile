@@ -140,7 +140,8 @@ class _CartTotal extends StatelessWidget {
                       shop: shop.id,
                       salesperson: sModel.getSalespersonId(),
                       totalPrice: totalPrice,
-                      receivedPrice: int.parse(controller.text));
+                      receivedPrice: int.parse(controller.text),
+                      token: sModel.getUserToken());
                   cart.removeAll();
                   Navigator.pop(context);
                 },

@@ -134,7 +134,8 @@ class _AddShopFormState extends State<AddShopForm> {
                         telephone_controller.text,
                         location_controller.text,
                         address_controller.text,
-                        sModel.getWarehouseId());
+                        sModel.getWarehouseId(),
+                        sModel.getUserToken());
                     ScaffoldMessenger.of(context)
                         .showSnackBar(SnackBar(content: Text('Saved')));
                     Navigator.of(context)

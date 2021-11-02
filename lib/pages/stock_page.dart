@@ -23,7 +23,7 @@ class StockPage extends StatelessWidget {
           Expanded(
             child: FutureBuilder(
                 future: StockProductService.getStockProducts(
-                    sModel.getSalespersonId()),
+                    sModel.getSalespersonId(), sModel.getUserToken()),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     print(snapshot.error);

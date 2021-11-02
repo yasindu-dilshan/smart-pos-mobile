@@ -23,6 +23,10 @@ class SalespersonModel extends ChangeNotifier {
     return _salesperson.id;
   }
 
+  String getUserToken() {
+    return _token;
+  }
+
   String getWarehouseId() {
     return _salesperson.warehouseId;
   }

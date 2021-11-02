@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 
 class RequestLeavePage extends StatelessWidget {
   static const routeName = '/requestLeavePage';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,10 +100,12 @@ class _RequestLeaveFormState extends State<RequestLeaveForm> {
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   LeaveService.addLeave(
-                      description_controller.text,
-                      from_controller.text,
-                      to_controller.text,
-                      sModel.getSalespersonId());
+                    description_controller.text,
+                    from_controller.text,
+                    to_controller.text,
+                    sModel.getSalespersonId(),
+                    sModel.getUserToken()
+                  );
 
                   ScaffoldMessenger.of(context)
                       .showSnackBar(SnackBar(content: Text('Saved')));

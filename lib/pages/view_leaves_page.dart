@@ -17,7 +17,7 @@ class ViewLeavePage extends StatelessWidget {
         title: Text('Leaves'),
       ),
       body: FutureBuilder(
-          future: LeaveService.getAllLeaves(sModel.getSalespersonId()),
+          future: LeaveService.getAllLeaves(sModel.getSalespersonId(), sModel.getUserToken()),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               print(snapshot.error);

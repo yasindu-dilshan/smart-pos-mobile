@@ -29,7 +29,7 @@ class ShopHomePage extends StatelessWidget {
       var id = await FlutterBarcodeScanner.scanBarcode(
           '#000000', 'Cancel', true, ScanMode.BARCODE);
       var productList =
-          await ProductService.getOneProduct(sModel.getSalespersonId(), id);
+          await ProductService.getOneProduct(sModel.getSalespersonId(), id, sModel.getUserToken());
       for (var i = 0; i < productList!.length; i++) {
         var product = productList[i];
         if (product.id == id) {

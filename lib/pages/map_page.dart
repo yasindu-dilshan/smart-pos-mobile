@@ -57,7 +57,7 @@ class _MapScreenState extends State<MapScreen> {
     var sModel = context.watch<SalespersonModel>();
     return Scaffold(
         body: FutureBuilder(
-      future: ShopService.getAssignedShops(sModel.getSalespersonId()),
+      future: ShopService.getAssignedShops(sModel.getSalespersonId(), sModel.getUserToken()),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           print(snapshot.error);

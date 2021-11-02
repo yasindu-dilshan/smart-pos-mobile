@@ -90,7 +90,7 @@ class Items extends StatelessWidget {
   Widget build(BuildContext context) {
     var sModel = context.watch<SalespersonModel>();
     return FutureBuilder(
-        future: StockProductService.getStockProducts(sModel.getSalespersonId()),
+        future: StockProductService.getStockProducts(sModel.getSalespersonId(), sModel.getUserToken()),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             print(snapshot.error);

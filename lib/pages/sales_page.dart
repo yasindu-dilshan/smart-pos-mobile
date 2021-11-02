@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 import 'package:smart_pos_mobile/data/order.dart';
+import 'package:smart_pos_mobile/data/salespersonModel.dart';
 import 'package:smart_pos_mobile/data/shop.dart';
 import 'package:smart_pos_mobile/services/order_service.dart';
 
@@ -7,7 +9,7 @@ class SalesPage extends StatelessWidget {
   SalesPage({required this.shop});
   final Shop shop;
 
-  Future createAlertDialog(BuildContext context, var due, var id) {
+  Future createAlertDialog(BuildContext context, var due, var id, SalespersonModel sModel) {
     var controller = TextEditingController();
     return showDialog(
         context: context,
@@ -24,7 +26,7 @@ class SalesPage extends StatelessWidget {
             actions: [
               ElevatedButton(
                 onPressed: () {
-                  OrderService.updateDueAmount(id, int.parse(controller.text));
+                  OrderService.updateDueAmount(id, int.parse(controller.text), sModel.getUserToken());
                   Navigator.pop(context);
                 },
                 style: ElevatedButton.styleFrom(primary: Colors.red),
@@ -50,10 +52,11 @@ class SalesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var sModel = context.watch<SalespersonModel>();
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
       child: FutureBuilder(
-        future: OrderService.getOrderOfOneShop(shop.id),
+        future: OrderService.getOrderOfOneShop(shop.id, sModel.getUserToken()),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             print(snapshot.error);
@@ -137,7 +140,7 @@ class SalesPage extends StatelessWidget {
                         child: due > 0
                             ? ElevatedButton(
                                 onPressed: () {
-                                  createAlertDialog(context, due, orders[i].id);
+                                  createAlertDialog(context, due, orders[i].id, sModel);
                                 },
                                 style: ElevatedButton.styleFrom(
                                     primary: Colors.red),
