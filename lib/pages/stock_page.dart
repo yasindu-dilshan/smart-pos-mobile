@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:smart_pos_mobile/config.dart';
+import 'package:smart_pos_mobile/data/salespersonModel.dart';
 import 'package:smart_pos_mobile/data/stockProduct.dart';
 import 'package:smart_pos_mobile/services/stockProduct_service.dart';
+import 'package:provider/provider.dart';
 
 class StockPage extends StatelessWidget {
   static const routeName = '/stockPage';
   @override
   Widget build(BuildContext context) {
+    var sModel = context.watch<SalespersonModel>();
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('Stock'),
-      // ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 10),
         child: Column(children: [
@@ -23,13 +22,13 @@ class StockPage extends StatelessWidget {
           ),
           Expanded(
             child: FutureBuilder(
-                future:
-                    StockProductService.getStockProducts('${Config.USER_ID}'),
+                future: StockProductService.getStockProducts(
+                    sModel.getSalespersonId(), sModel.getUserToken()),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     print(snapshot.error);
                     return Center(
-                      child: Text('Error'),
+                      child: Text('Please Try Again!'),
                     );
                   } else if (snapshot.hasData) {
                     var stockProducts = snapshot.data as List<StockProduct>;
@@ -77,7 +76,6 @@ class StockPage extends StatelessWidget {
                           child: Container(
                             height: 32,
                             alignment: Alignment.center,
-                            // color: Colors.blueGrey,
                             child: Text(
                               stockProducts[i].name,
                               style: TextStyle(fontWeight: FontWeight.w700),
@@ -90,7 +88,6 @@ class StockPage extends StatelessWidget {
                           child: Container(
                             height: 32,
                             alignment: Alignment.center,
-                            // color: Colors.blueGrey,
                             child: Text(
                               'Rs. ' + stockProducts[i].unitPrice.toString(),
                               style: TextStyle(fontWeight: FontWeight.w700),
@@ -103,7 +100,6 @@ class StockPage extends StatelessWidget {
                           child: Container(
                             height: 32,
                             alignment: Alignment.center,
-                            // color: Colors.blueGrey,
                             child: Text(
                               (stockProducts[i].quantity -
                                       stockProducts[i].sales)

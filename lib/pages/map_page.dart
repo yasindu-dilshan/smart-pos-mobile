@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:smart_pos_mobile/config.dart';
+import 'package:smart_pos_mobile/data/salespersonModel.dart';
 import 'package:smart_pos_mobile/data/shop.dart';
 import 'package:smart_pos_mobile/pages/shop_home_page.dart';
 import 'package:smart_pos_mobile/services/shop_service.dart';
+import 'package:provider/provider.dart';
 
 class MapPage extends StatelessWidget {
   static const routeName = '/MapPage';
@@ -25,15 +26,13 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  Set<Marker> _markers = {};
+  final Set<Marker> _markers = {};
   late List<Shop> shopList;
 
   void _onMapCreated(GoogleMapController controller) {
     setState(() {
       for (var i = 0; i < shopList.length; i++) {
         var shop = shopList[i];
-        print(double.parse(shop.latitude));
-        print('gg');
         _markers.add(
           Marker(
             markerId: MarkerId(i.toString()),
@@ -55,9 +54,10 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var sModel = context.watch<SalespersonModel>();
     return Scaffold(
         body: FutureBuilder(
-      future: ShopService.getAssignedShops(Config.USER_ID),
+      future: ShopService.getAssignedShops(sModel.getSalespersonId(), sModel.getUserToken()),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           print(snapshot.error);

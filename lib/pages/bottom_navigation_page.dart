@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_pos_mobile/config.dart';
-import 'package:smart_pos_mobile/data/shop.dart';
-import 'package:smart_pos_mobile/data/shopModel.dart';
 import 'package:smart_pos_mobile/pages/home_page.dart';
-import 'package:smart_pos_mobile/pages/profile_page.dart';
+import 'package:smart_pos_mobile/pages/login_page.dart';
 import 'package:smart_pos_mobile/pages/stock_page.dart';
-import 'package:smart_pos_mobile/pages/view_leaves_page.dart';
 import 'package:smart_pos_mobile/services/auth_service.dart';
-import 'package:smart_pos_mobile/services/shop_service.dart';
 
 class BottomNavigationPage extends StatefulWidget {
   static const routeName = '/bottomNavigationPage';
@@ -18,7 +13,6 @@ class BottomNavigationPage extends StatefulWidget {
   static final List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     StockPage(),
-    ProfilePage()
   ];
 
   @override
@@ -27,6 +21,39 @@ class BottomNavigationPage extends StatefulWidget {
 
 class _BottomNavigationPageState extends State<BottomNavigationPage> {
   int _selectedIndex = 0;
+  Future createAlertDialog(BuildContext context, authService) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Are You Sure ?'),
+            actions: [
+              ElevatedButton(
+                onPressed: () async {
+                  await authService.signOut();
+                  Navigator.popUntil(context, ModalRoute.withName(LoginPage.routeName));
+                  await Navigator.of(context).pushNamed(LoginPage.routeName);
+                },
+                style: ElevatedButton.styleFrom(primary: Colors.red),
+                child: Text(
+                  'Yes',
+                  style: TextStyle(fontWeight: FontWeight.w700),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                style: ElevatedButton.styleFrom(primary: Colors.blue),
+                child: Text(
+                  'No',
+                  style: TextStyle(fontWeight: FontWeight.w700),
+                ),
+              ),
+            ],
+          );
+        });
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -36,13 +63,25 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
 
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
     // updateShopModel(Config.USER_ID);
     return Scaffold(
       appBar: AppBar(
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('SMART POS'),
+            TextButton(
+              onPressed: () {
+                createAlertDialog(context, authService);
+              },
+              style: TextButton.styleFrom(
+                  backgroundColor: Colors.deepPurpleAccent),
+              child: Text(
+                'Logout',
+                style: TextStyle(color: Colors.white),
+              ),
+            )
           ],
         ),
         automaticallyImplyLeading: false,
@@ -61,10 +100,6 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.view_list),
             label: 'Stock',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.manage_accounts),
-            label: 'Profile',
           ),
         ],
         currentIndex: _selectedIndex,

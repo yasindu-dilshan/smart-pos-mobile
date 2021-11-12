@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:smart_pos_mobile/data/salespersonModel.dart';
 import 'package:smart_pos_mobile/pages/view_leaves_page.dart';
 import 'package:smart_pos_mobile/services/leave_service.dart';
+import 'package:provider/provider.dart';
 
 class RequestLeavePage extends StatelessWidget {
   static const routeName = '/requestLeavePage';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +35,7 @@ class _RequestLeaveFormState extends State<RequestLeaveForm> {
 
   @override
   Widget build(BuildContext context) {
+    var sModel = context.watch<SalespersonModel>();
     return Form(
       key: _formKey,
       child: Padding(
@@ -74,7 +78,7 @@ class _RequestLeaveFormState extends State<RequestLeaveForm> {
             DateTimeField(
               controller: to_controller,
               decoration: InputDecoration(
-                  border: UnderlineInputBorder(), labelText: "To"),
+                  border: UnderlineInputBorder(), labelText: 'To'),
               format: format,
               onShowPicker: (context, currentValue) {
                 return showDatePicker(
@@ -95,8 +99,13 @@ class _RequestLeaveFormState extends State<RequestLeaveForm> {
             ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
-                  var a = LeaveService.addLeave(description_controller.text,
-                      from_controller.text, to_controller.text);
+                  LeaveService.addLeave(
+                    description_controller.text,
+                    from_controller.text,
+                    to_controller.text,
+                    sModel.getSalespersonId(),
+                    sModel.getUserToken()
+                  );
 
                   ScaffoldMessenger.of(context)
                       .showSnackBar(SnackBar(content: Text('Saved')));

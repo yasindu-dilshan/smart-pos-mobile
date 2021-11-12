@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
+import 'package:smart_pos_mobile/data/salespersonModel.dart';
 import 'package:smart_pos_mobile/data/shop.dart';
 import 'package:smart_pos_mobile/services/shop_service.dart';
 import 'package:smart_pos_mobile/widgets/rounded_input.dart';
@@ -9,6 +11,7 @@ class ViewShopPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    var sModel = context.watch<SalespersonModel>();
     return Scaffold(
         appBar: AppBar(
           title: Text('Shops'),
@@ -16,14 +19,8 @@ class ViewShopPage extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              RoundedInput(
-                size: size,
-                icon: Icons.search,
-                hintText: 'Search',
-                controller: null,
-              ),
               FutureBuilder(
-                future: ShopService.getAllShops(),
+                future: ShopService.getAllShops(sModel.getUserToken()),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     print(snapshot.error);
@@ -41,7 +38,10 @@ class ViewShopPage extends StatelessWidget {
                     );
                   }
                   return Center(
-                    child: CircularProgressIndicator(),
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: CircularProgressIndicator(),
+                    ),
                   );
                 },
               ),

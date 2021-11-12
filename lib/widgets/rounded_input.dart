@@ -21,8 +21,14 @@ class RoundedInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return InputContainer(
       size: size,
-      child: TextField(
+      child: TextFormField(
         controller: controller,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter your email';
+          }
+          return null;
+        },
         decoration: InputDecoration(
           icon: Icon(
             icon,

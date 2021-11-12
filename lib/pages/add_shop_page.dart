@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:smart_pos_mobile/data/salespersonModel.dart';
 import 'package:smart_pos_mobile/pages/bottom_navigation_page.dart';
-import 'package:smart_pos_mobile/pages/home_page.dart';
 import 'package:smart_pos_mobile/services/shop_service.dart';
+import 'package:provider/provider.dart';
 
 class AddShopPage extends StatelessWidget {
   static const routeName = '/addShopPage';
@@ -33,6 +34,7 @@ class _AddShopFormState extends State<AddShopForm> {
 
   @override
   Widget build(BuildContext context) {
+    var sModel = context.watch<SalespersonModel>();
     return Form(
       key: _formKey,
       child: Padding(
@@ -125,13 +127,15 @@ class _AddShopFormState extends State<AddShopForm> {
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    var a = ShopService.addShop(
+                    ShopService.addShop(
                         shopName_controller.text,
                         ownerName_controller.text,
                         email_controller.text,
                         telephone_controller.text,
                         location_controller.text,
-                        address_controller.text);
+                        address_controller.text,
+                        sModel.getWarehouseId(),
+                        sModel.getUserToken());
                     ScaffoldMessenger.of(context)
                         .showSnackBar(SnackBar(content: Text('Saved')));
                     Navigator.of(context)

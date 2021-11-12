@@ -3,13 +3,17 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:smart_pos_mobile/config.dart';
 import 'package:smart_pos_mobile/data/shop.dart';
-import 'package:smart_pos_mobile/data/shop.dart';
 import 'package:location/location.dart';
 
 class ShopService {
-  static Future<List<Shop>?> getAllShops() async {
+  static Future<List<Shop>?> getAllShops(String token) async {
     final response = await http
-        .get(Uri.parse('${Config.BACKEND_URL}salesperson/shop?sortBy=+name'));
+        .get(Uri.parse('${Config.BACKEND_URL}salesperson/shop?sortBy=+name'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+    );
     if (response.statusCode == 200 || response.statusCode == 201) {
       return jsonDecode(response.body)['items'].map<Shop>((data) {
         return Shop.fromJSON(data);
@@ -19,9 +23,14 @@ class ShopService {
     }
   }
 
-  static Future<List<Shop>?> getAssignedShops(String? id) async {
+  static Future<List<Shop>?> getAssignedShops(String? id, String token) async {
     final response = await http
-        .get(Uri.parse('${Config.BACKEND_URL}salesperson/assignedShops/$id'));
+        .get(Uri.parse('${Config.BACKEND_URL}salesperson/assignedShops/$id'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+    );
     if (response.statusCode == 200 || response.statusCode == 201) {
       return jsonDecode(response.body)['shops'].map<Shop>((data) {
         return Shop.fromJSON(data);
@@ -31,16 +40,21 @@ class ShopService {
     }
   }
 
-  static Future<Shop?> getOneShop() async {
+  static Future<Shop?> getOneShop(String token) async {
     final response = await http.get(Uri.parse(
-        '${Config.BACKEND_URL}/salesperson/shop/61366f2747ecc3419cad28fc'));
+        '${Config.BACKEND_URL}/salesperson/shop/61366f2747ecc3419cad28fc'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+    );
     if (response.statusCode == 200 || response.statusCode == 201) {
       return Shop.fromJSON(jsonDecode(response.body)['result']);
     }
   }
 
   static void addShop(String name, String ownerName, String email,
-      String telephone, String loc, String address) async {
+      String telephone, String loc, String address, String wareHouseId, String token) async {
     // Location
     var location = Location();
 
@@ -65,11 +79,11 @@ class ShopService {
     }
 
     _locationData = await location.getLocation();
-    print(_locationData.longitude);
     final response =
         await http.post(Uri.parse('${Config.BACKEND_URL}salesperson/shop'),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8',
+              'Authorization': 'Bearer $token',
             },
             body: jsonEncode(<String, String>{
               'name': name,
@@ -80,7 +94,7 @@ class ShopService {
               'latitude': _locationData.latitude.toString(),
               'ownerName': ownerName,
               'address': address,
-              'warehouse': Config.WAREHOUSE_ID
+              'warehouse': wareHouseId
             }));
     if (response.statusCode == 200 || response.statusCode == 201) {
       return;

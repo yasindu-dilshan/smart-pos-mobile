@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_pos_mobile/data/cartModel.dart';
 import 'package:smart_pos_mobile/data/salesModel.dart';
+import 'package:smart_pos_mobile/data/salespersonModel.dart';
 import 'package:smart_pos_mobile/pages/login_page.dart';
 import 'package:smart_pos_mobile/routes.dart';
 import 'package:smart_pos_mobile/services/auth_service.dart';
@@ -19,12 +20,14 @@ void main() async {
       ),
       ChangeNotifierProvider(create: (context) => CartModel()),
       ChangeNotifierProvider(create: (context) => SalesModel()),
+      ChangeNotifierProvider(create: (context) => SalespersonModel()),
     ],
     child: SmartPOSApp(),
   ));
 }
 
 class SmartPOSApp extends StatelessWidget {
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -32,7 +35,7 @@ class SmartPOSApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: MyTheme.lightTheme,
       routes: routes,
-      home: Wrapper(),
+      home: LoginPage(),
     );
   }
 }

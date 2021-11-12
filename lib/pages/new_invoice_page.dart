@@ -4,13 +4,12 @@ import 'package:provider/provider.dart';
 import 'package:smart_pos_mobile/constants.dart';
 import 'package:smart_pos_mobile/data/cartModel.dart';
 import 'package:smart_pos_mobile/data/cartProduct.dart';
+import 'package:smart_pos_mobile/data/salespersonModel.dart';
 import 'package:smart_pos_mobile/data/shop.dart';
 import 'package:smart_pos_mobile/data/stockProduct.dart';
 import 'package:smart_pos_mobile/pages/cart.dart';
 import 'package:smart_pos_mobile/services/stockProduct_service.dart';
 import 'package:smart_pos_mobile/widgets/rounded_input.dart';
-
-import '../config.dart';
 
 class NewInvoicePage extends StatelessWidget {
   NewInvoicePage({required this.shop});
@@ -89,8 +88,9 @@ class Items extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var sModel = context.watch<SalespersonModel>();
     return FutureBuilder(
-        future: StockProductService.getStockProducts('${Config.USER_ID}'),
+        future: StockProductService.getStockProducts(sModel.getSalespersonId(), sModel.getUserToken()),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             print(snapshot.error);

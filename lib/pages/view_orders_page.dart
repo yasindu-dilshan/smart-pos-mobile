@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:smart_pos_mobile/config.dart';
-import 'package:smart_pos_mobile/data/order.dart';
+import 'package:smart_pos_mobile/data/salespersonModel.dart';
 import 'package:smart_pos_mobile/data/salespersonOrder.dart';
-import 'package:smart_pos_mobile/data/shop.dart';
 import 'package:smart_pos_mobile/services/order_service.dart';
-import 'package:smart_pos_mobile/services/shop_service.dart';
 import 'package:smart_pos_mobile/widgets/order_list.dart';
 import 'package:smart_pos_mobile/widgets/rounded_input.dart';
-import 'package:smart_pos_mobile/widgets/shop_list.dart';
+import 'package:provider/provider.dart';
 
 class ViewOrdersPage extends StatelessWidget {
   static const routeName = '/ViewOrdersPage';
   @override
   Widget build(BuildContext context) {
+    var sModel = context.watch<SalespersonModel>();
     var size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
@@ -21,14 +19,9 @@ class ViewOrdersPage extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              RoundedInput(
-                size: size,
-                icon: Icons.search,
-                hintText: 'Search',
-                controller: null,
-              ),
               FutureBuilder(
-                future: OrderService.getOrdersOfOneSalesperson(Config.USER_ID),
+                future: OrderService.getOrdersOfOneSalesperson(
+                    sModel.getSalespersonId(), sModel.getUserToken()),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     print(snapshot.error);
@@ -36,6 +29,7 @@ class ViewOrdersPage extends StatelessWidget {
                       child: Text('Error'),
                     );
                   } else if (snapshot.hasData) {
+                    print('gg');
                     var orders = snapshot.data as List<SalespersonOrder>?;
                     return Container(
                       padding:
@@ -46,7 +40,10 @@ class ViewOrdersPage extends StatelessWidget {
                     );
                   }
                   return Center(
-                    child: CircularProgressIndicator(),
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: CircularProgressIndicator(),
+                    ),
                   );
                 },
               ),

@@ -31,7 +31,7 @@ class MenuCard extends StatelessWidget {
               ),
               height: 125,
             ),
-            Text(text)
+            Text(text,textDirection: TextDirection.ltr)
           ],
         ),
       ),

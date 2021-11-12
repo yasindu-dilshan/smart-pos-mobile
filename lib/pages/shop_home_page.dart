@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_pos_mobile/config.dart';
 import 'package:smart_pos_mobile/data/cartModel.dart';
 import 'package:smart_pos_mobile/data/cartProduct.dart';
+import 'package:smart_pos_mobile/data/salespersonModel.dart';
 import 'package:smart_pos_mobile/data/shop.dart';
 import 'package:smart_pos_mobile/pages/new_invoice_page.dart';
 import 'package:smart_pos_mobile/pages/sales_page.dart';
@@ -19,6 +19,7 @@ class ShopHomePage extends StatelessWidget {
   static const routeName = '/shopHomePage';
   @override
   Widget build(BuildContext context) {
+    var sModel = context.watch<SalespersonModel>();
     final args =
         ModalRoute.of(context)!.settings.arguments as ShopHomeArguments;
     final shop = args.shop;
@@ -27,7 +28,8 @@ class ShopHomePage extends StatelessWidget {
     Future<void> scan() async {
       var id = await FlutterBarcodeScanner.scanBarcode(
           '#000000', 'Cancel', true, ScanMode.BARCODE);
-      var productList = await ProductService.getOneProduct(Config.USER_ID, id);
+      var productList =
+          await ProductService.getOneProduct(sModel.getSalespersonId(), id, sModel.getUserToken());
       for (var i = 0; i < productList!.length; i++) {
         var product = productList[i];
         if (product.id == id) {
@@ -62,15 +64,12 @@ class ShopHomePage extends StatelessWidget {
             bottom: TabBar(
               tabs: [
                 Tab(
-                  // icon: Icon(Icons.details),
                   text: 'Details',
                 ),
                 Tab(
-                  // icon: Icon(Icons.shopping_cart_outlined),
                   text: 'Sales',
                 ),
                 Tab(
-                  // icon: Icon(Icons.add_shopping_cart_rounded),
                   text: 'New Invoice',
                 )
               ],

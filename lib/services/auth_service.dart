@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:smart_pos_mobile/data/user.dart';
 
 class AuthService {
-  auth.FirebaseAuth _firebaseAuth = auth.FirebaseAuth.instance;
+  final auth.FirebaseAuth _firebaseAuth = auth.FirebaseAuth.instance;
 
   User? _userFromFirebase(auth.User? user) {
     if (user == null) {
@@ -19,12 +19,20 @@ class AuthService {
     String email,
     String password,
   ) async {
-    final credential = await _firebaseAuth.signInWithEmailAndPassword(
-        email: email, password: password);
-    return _userFromFirebase(credential.user);
+    try {
+      final credential = await _firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
+      return _userFromFirebase(credential.user);
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<void> signOut() async {
-    return await _firebaseAuth.signOut();
+    try {
+      return await _firebaseAuth.signOut();
+    } catch (e) {
+      print(e);
+    }
   }
 }
