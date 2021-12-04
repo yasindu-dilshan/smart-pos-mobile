@@ -8,7 +8,6 @@ import 'package:smart_pos_mobile/services/auth_service.dart';
 import 'package:smart_pos_mobile/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:smart_pos_mobile/wrapper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

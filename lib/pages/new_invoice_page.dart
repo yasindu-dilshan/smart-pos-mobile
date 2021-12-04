@@ -9,7 +9,6 @@ import 'package:smart_pos_mobile/data/shop.dart';
 import 'package:smart_pos_mobile/data/stockProduct.dart';
 import 'package:smart_pos_mobile/pages/cart.dart';
 import 'package:smart_pos_mobile/services/stockProduct_service.dart';
-import 'package:smart_pos_mobile/widgets/rounded_input.dart';
 
 class NewInvoicePage extends StatelessWidget {
   NewInvoicePage({required this.shop});
@@ -24,12 +23,6 @@ class NewInvoicePage extends StatelessWidget {
           children: [
             //Cart Button
             CartButton(shop: shop, size: size),
-            RoundedInput(
-              size: size,
-              icon: Icons.search,
-              hintText: 'Search',
-              controller: null,
-            ),
             Items(),
           ],
         ),
@@ -168,56 +161,3 @@ class Items extends StatelessWidget {
         });
   }
 }
-// InkWell(
-// onTap: () {
-// if (!Provider.of<CartModel>(context, listen: false)
-//     .isCartProductIn(product.id)) {
-// var cartProduct = CartProduct(
-// id: product.id,
-// name: product.name,
-// uniPrice: product.unitPrice,
-// stockQuantity: product.quantity,
-// selectedQuantity: 0,
-// photo: product.photo,
-// );
-// Provider.of<CartModel>(context, listen: false)
-//     .add(cartProduct);
-// }
-//
-// print(Provider.of<CartModel>(context, listen: false)
-//     .count);
-// },
-// child: Container(
-// decoration: BoxDecoration(
-// color: Colors.black.withAlpha(15),
-// borderRadius: BorderRadius.circular(15)),
-// child: Column(
-// mainAxisAlignment: MainAxisAlignment.center,
-// children: [
-// Text(
-// product.name,
-// style: TextStyle(
-// fontSize: 17, fontWeight: FontWeight.w500),
-// ),
-// SizedBox(
-// height: 5,
-// ),
-// Expanded(child: Image.network(product.photo)),
-// SizedBox(
-// height: 5,
-// ),
-// Text('Rs. ' + product.unitPrice.toString())
-// ],
-// ),
-// ),
-// );
-// FutureBuilder(
-// future: ShopService.getAssignedShops(Config.USER_ID),
-// builder: (context, snapshot){
-// if(snapshot.hasError){
-// print(snapshot.error);
-// }else if (snapshot.hasData){
-// var ShopList = snapshot.data as List<Shop>;
-// }
-// },
-// )

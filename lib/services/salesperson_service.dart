@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:smart_pos_mobile/config.dart';
 import 'package:smart_pos_mobile/data/salesperson.dart';

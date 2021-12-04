@@ -22,7 +22,6 @@ class StockProductService {
           return stockProduct;
         }).toList();
       } else {
-        print(response.statusCode);
         throw Exception('Failed to load the stock products');
       }
     }

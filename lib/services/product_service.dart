@@ -23,7 +23,7 @@ class ProductService {
           }).toList();
         }
       } catch (e) {
-        print(e);
+        throw Exception('Failed to load the one product');
       }
     }
   }

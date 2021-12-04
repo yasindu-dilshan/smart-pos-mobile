@@ -152,7 +152,9 @@ class _CartTotal extends StatelessWidget {
                 ),
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
                 style: ElevatedButton.styleFrom(primary: Colors.blue),
                 child: Text(
                   'CANCEL',

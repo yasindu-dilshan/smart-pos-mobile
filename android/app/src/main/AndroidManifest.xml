@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="yasindudilshan.smart_pos_mobile">
    <application
-        android:label="smart_pos_mobile"
+        android:label="SMART POS"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

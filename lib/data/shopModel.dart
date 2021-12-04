@@ -1,10 +1,6 @@
 import 'dart:collection';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-import 'package:smart_pos_mobile/data/cartProduct.dart';
 import 'package:smart_pos_mobile/data/shop.dart';
-import 'package:smart_pos_mobile/data/stockProduct.dart';
 
 class ShopModel extends ChangeNotifier {
   List<Shop> _items = [];
