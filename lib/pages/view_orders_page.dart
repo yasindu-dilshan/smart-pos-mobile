@@ -3,7 +3,6 @@ import 'package:smart_pos_mobile/data/salespersonModel.dart';
 import 'package:smart_pos_mobile/data/salespersonOrder.dart';
 import 'package:smart_pos_mobile/services/order_service.dart';
 import 'package:smart_pos_mobile/widgets/order_list.dart';
-import 'package:smart_pos_mobile/widgets/rounded_input.dart';
 import 'package:provider/provider.dart';
 
 class ViewOrdersPage extends StatelessWidget {
@@ -11,7 +10,6 @@ class ViewOrdersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var sModel = context.watch<SalespersonModel>();
-    var size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
           title: Text('Orders'),
@@ -24,12 +22,10 @@ class ViewOrdersPage extends StatelessWidget {
                     sModel.getSalespersonId(), sModel.getUserToken()),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
-                    print(snapshot.error);
                     return Center(
                       child: Text('Error'),
                     );
                   } else if (snapshot.hasData) {
-                    print('gg');
                     var orders = snapshot.data as List<SalespersonOrder>?;
                     return Container(
                       padding:

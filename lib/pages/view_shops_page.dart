@@ -23,7 +23,7 @@ class ViewShopPage extends StatelessWidget {
                 future: ShopService.getAllShops(sModel.getUserToken()),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
-                    print(snapshot.error);
+
                     return Center(
                       child: Text('Error'),
                     );

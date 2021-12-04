@@ -1,5 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_pos_mobile/data/salespersonModel.dart';
@@ -16,7 +14,6 @@ class HomePage extends StatelessWidget {
   static const routeName = '/homePag';
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<AuthService>(context);
     var sModel = context.watch<SalespersonModel>();
     return Scaffold(
       body: SafeArea(

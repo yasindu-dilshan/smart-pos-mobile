@@ -21,7 +21,6 @@ class OrderService {
           return Order.fromJSON(data);
         }).toList();
       } else {
-        print(response.statusCode);
         throw Exception('Failed to load the orders');
       }
     }
@@ -37,7 +36,6 @@ class OrderService {
           'Authorization': 'Bearer $token',
         },
       );
-      print(response.body);
       if (response.statusCode == 200 || response.statusCode == 201) {
         return jsonDecode(response.body)['result']
             .map<SalespersonOrder>((data) {
@@ -109,7 +107,6 @@ class OrderService {
         return;
       }
     } else {
-      print(response.statusCode);
       return;
     }
   }
@@ -128,7 +125,7 @@ class OrderService {
     if (response.statusCode == 201 || response.statusCode == 200) {
       print(response.statusCode);
     } else {
-      print(response.body);
+      throw Exception('Failed to update the due amount');
     }
   }
 }

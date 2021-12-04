@@ -3,9 +3,8 @@ import 'package:smart_pos_mobile/data/leave.dart';
 import 'package:smart_pos_mobile/widgets/leave_card.dart';
 
 class LeaveList extends StatelessWidget {
-  final List<Leave> leaves;
   const LeaveList({required this.leaves});
-
+  final List<Leave> leaves;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(

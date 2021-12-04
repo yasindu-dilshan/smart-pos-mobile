@@ -1,4 +1,3 @@
-import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:smart_pos_mobile/data/salesperson.dart';
 

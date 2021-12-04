@@ -26,7 +26,6 @@ class StockPage extends StatelessWidget {
                     sModel.getSalespersonId(), sModel.getUserToken()),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
-                    print(snapshot.error);
                     return Center(
                       child: Text('Please Try Again!'),
                     );
